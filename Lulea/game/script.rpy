@@ -5,6 +5,7 @@ define a = Character("Anja")
 define l = Character("Liv")
 define unknown = Character("???")
 define v = Character("Viggo")
+define g = Character("Garde")
 image snow1 = Fixed(SnowBlossom("gui/snow1.png", 50, xspeed=(20,50), yspeed=(100,200), start=10))
 image snow2 = Fixed(SnowBlossom("gui/snow2.png", 50, xspeed=(20,50), yspeed=(100,200), start=10))
 define fade = Fade(0.5, 0.0, 0.5)
@@ -273,9 +274,166 @@ a "Où voulez vous aller ?"
                                                                 #image de guerre avec le camp totalement détruit avec le cadavre de Viggo, de Sven et de pname
                                                         Partir :
                                                                 p "Bon, ça se finit aujourd'hui. Je suis triste que ça se finisse comme ça mais c'est ton choix et je le respecte. Bonne chance, Sven. Prenez bien soin de lui, Viggo. Adieu Sven !"
-
+                                                                #########################
                                         Partir :
-                                                s ""                        
+                                                s "Désolé Viggo mais je dois partir avec [p_name]. J'ai très confiance en lui et il m'a traitée de la meilleure manière qu'il a pu."
+                                                v "Sache que tu fais le mauvais choix Sven, tu ne peux pas faire confiance à des inconnus surtout par ces temps ci."
+                                                s "Mais ce n'est pas un inconnu Viggo, c'est mon père."
+                                                p "Allons y Sven, il faut qu'on se dépche avant qu'il n'y arrive quelque chose."
+
+                                                #image seuls dans une foret
+                                                p "Pour se rendre à Lulea, il faut qu'on traverse la ville de Kiruna et trouver des ressources."
+                                                p "On a le choix entre trois lieux : le cinéma, le quartier résidentiel et le supermarché."
+                                                #choix : cinema - quartier - supermarché
+                                                        Quartier :
+                                                                p "Allons se rendre dans le quartier, on trouveras surement des restes."
+
+                                                                #image quartiers puis intérieur maison
+                                                                p "Je viens de trouver une conserve de thon."
+                                                                #choix : la garder - la manger - la donner
+                                                                    La manger : 
+                                                                            p "Je suis désolé fiston, mais avec tout ce qui m'est arriver. C'est encore plus dure pour moi. Je préférais la prendre. Sans etre en bonne forme, je ne pourrais plus de protéger, tu comprends ?"
+                                                                            s "Je comprends."
+                                                                    Lui donner : 
+                                                                            p "Tu peux la manger, Sven. Tu en a beaucoup plus besoin que moi."
+                                                                            s "Merci papa." # +1
+                                                                    La garder : 
+                                                                            p "Je pense qui serait mieux de la garder. On ne sait jamais ce qui peut se passer"
+                                                                            s "Ok papa, ça me parait juste."
+                                                                p "Je crois qu'on a tout fouillé, on peut s'en aller et rejoindre Lulea. Enfin !"
+
+                                                        Cinéma :
+                                                                p "On peut aller au cinéma. Les gens se ruent plus facilement dans les maisons et supermachés plutot que les cinémas."
+
+                                                                #intérieur cinéma
+                                                                s "Ouah, c'est immense !"
+                                                                p "Tu n'es jamais allé au cinéma ?"
+                                                                s "Ja, j'y suis déja allé mais c'était il y a longtemps et j'était très jeune. Je ne m'en souviens plus trop."
+                                                                p "C'est quoi ton film préféré ?"
+                                                                s "Gordon och Paddy ! Il est hyper drole, c'est l'histoire d'un détective qui est trop débile pour résoudre la moindre enquete."
+                                                                p "Ca doit etre rigolo !"
+                                                                s "C'est le meilleur film de tous les temps, de toute la création de l'univers. Et toi c'est quoi ton film préféré ?"
+                                                                p "Midsommar à coup sur mais il est un peu trop violent pour toi, c'est pas vraiment pour les enfants."
+                                                                s "Ohh."
+                                                                p "Mais je te le montrerais quand tu seras plus grand. Je suis sure que tu l'adoreras."
+                                                                p "..."
+                                                                p "Bon allons fouiller les lieux."
+                                                                s "J'ai pas l'impression qu'il y est grand chose ici."
+                                                                p "Tu as peut etre raison. Au moins ça ma fait plaisir un peu du passé et de touts ces vieux souvenirs."
+                                                                s "Oui moi aussi !"
+                                                                p "Allez, prenons la route vers Lulea, je veux savoir ce qui s'y passe."
+
+                                                        Supermarché :
+                                                                p "On peut aller au supermaché, peut etre que des choses n'ont pas encore été volé là bas."
+
+                                                                #image supermarché
+                                                                s "C'est si vide ici."
+                                                                p "Tout a déja été fouillé à mon avis."
+                                                                #bruit de coup de feu (assaut)
+                                                                p "Cache toi Sven !"
+                                                                s "Papa j'ai peur !"
+                                                                p "Ca va aller, ca va aller !"
+                                                                s "Qu'est ce qu'on fait ?"
+                                                                #choix : confrontation - fuite
+                                                                        Confrontation : 
+                                                                                p "On peut pas fuire, on est obligé de se battre."
+                                                                                p "Ok, tu va te cacher et moi je vais m'en occuper avec le pistolet."
+                                                                                p "Surtout, tu ne bouges pas de ta cachette, ok ?"
+                                                                                s "Ok, papa."
+                                                                                
+                                                                                #coup de feu
+                                                                                p "Ok, il en reste plus qu'un." 
+                                                                                #coup de feu
+                                                                                p "AHHHH"
+                                                                                p "Il m'a eu."
+                                                                                p "Il me faut un bandage !"
+                                                                                #menu : oui / non
+                                                                                Non :
+                                                                                    #image mort joueur
+                                                                                    #image bandit trouve l'enfant
+                                                                                    #image enfant dans le camp sanguinaire ##################
+
+                                                                                Oui :
+                                                                                    p "Heureusement que j'en ai récupéré !"
+                                                                                    p "Allez va mourir !"
+                                                                                    #coup de feu
+                                                                                    p "C'est bon, je l'ai eu."
+                                                                                    p "Tu peux sortir Sven, ils sont plus là."
+
+                                                                                    s "Ca va aller papa ?"
+                                                                                    p "Oui, Sven ne t'inquiète pas. Ce n'est qu'une égratinure. C'est vraiment dangereux ici, il faut absolument qu'on trouve Lulea le plus vite possible. Aller en route !"
+                                                                                    #Continue avec même label que fuite echec et fuite réussite
+                                                                        Fuite :
+                                                                                p "Il faut q'on s'enfuire, on ne peut pas aller à la confrontation."
+                                                                                p "A trois on cours."
+                                                                                p "1"
+                                                                                p "2"
+                                                                                p "3 GO !"
+                                                                                #choix chronométré rapide
+                                                                                        Echec : 
+                                                                                                p "Ok, tu va te cacher et moi je vais m'en occuper avec le pistolet."
+                                                                                                p "Surtout, tu ne bouges pas de ta cachette, ok ?"
+                                                                                                s "Ok, papa."
+                                                                                
+                                                                                                #coup de feu
+                                                                                                p "Ok, il en reste plus qu'un." 
+                                                                                                #coup de feu
+                                                                                                p "AHHHH"
+                                                                                                p "Il m'a eu."
+                                                                                                p "Il me faut un bandage !"
+                                                                                                #menu : oui / non
+                                                                                                Non :
+                                                                                                        #image mort joueur
+                                                                                                        #image bandit trouve l'enfant
+                                                                                                        #image enfant dans le camp sanguinaire ##################
+
+                                                                                                Oui :
+                                                                                                        p "Heureusement que j'en ai récupéré !"
+                                                                                                        p "Allez va mourir !"
+                                                                                                        #coup de feu
+                                                                                                        p "C'est bon, je l'ai eu."
+                                                                                                        p "Tu peux sortir Sven, ils sont plus là."
+
+                                                                                                        s "Ca va aller papa ?"
+                                                                                                        p "Oui, Sven ne t'inquiète pas. Ce n'est qu'une égratinure. C'est vraiment dangereux ici, il faut absolument qu'on trouve Lulea le plus vite possible. Aller en route !"
+                                        #Reparte vers Lulea
+                                        p "On doit plus etre très loin de Lulea."
+                                        s "T'es sur que c'est toujours une bonne idée papa ?"
+                                        p "Je pense que c'est la meilleure que nous ayons pour l'instant."
+
+                                        #image de la ville forteresse avec le logo de loup
+                                        #donner ou non de la nourriture
+                                        Oui : 
+                                            p "Tiens Sven tu en a besoin."
+                                            s "Merci papa"
+                                            p "On a besoin de force pour ce qui va nous arriver."
+                                        
+                                        p "T'es pret Sven ?"
+                                        s "Oui papa"
+
+                                        #image à la porte
+                                        #toc toc
+                                        g "Qui êtes vous ?"
+                                        p "On est simplement des survivants. On ne veut faire de mal à personne. J'ai entendu dire qu'il y a avait un camp ici et nous vouons seulement nous joindre à vous. Nous sommes prets à travailler énormément pour gagner une place dans votre groupe. Nous ne sommes pas malades, nous sommes à l'aise physiquement. Mon fils est très oéissant et ne vous causera aucun problème."
+                                        g "Bien, savez vous qui nous sommes ?"
+                                        p "Je n'en sais que très peu à votre sujet."
+                                        g "Avez vous déja vu notre symbole"
+                                        #non - oui
+                                                Non :
+                                                        p "Non c'est la première fois."
+                                                        g "Et bien il faudrait que l'on le montre davantage..."
+                                                        g "Nous sommes les Sköll. En hommage au dieu, grand dévoreur du Soleil."
+                                                        g "Savez vous ce que ça implique de nous rejoindre ?"
+                                                        g "Nous ne voulons que les meilleurs. Si vous ne faites pas partis des meilleurs, on vous fait disparaitre, c'est compris ?"
+                                                                        
+
+
+
+
+
+
+
+
 
 
 
