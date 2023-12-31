@@ -1,5 +1,10 @@
 ﻿define p = Character("[p_name]")
 define e = Character("Eileen")
+define s = Character("Sven")
+define a = Character("Anja")
+define l = Character("Liv")
+define unknown = Character("???")
+define v = Character("Viggo")
 image snow1 = Fixed(SnowBlossom("gui/snow1.png", 50, xspeed=(20,50), yspeed=(100,200), start=10))
 image snow2 = Fixed(SnowBlossom("gui/snow2.png", 50, xspeed=(20,50), yspeed=(100,200), start=10))
 define fade = Fade(0.5, 0.0, 0.5)
@@ -67,4 +72,222 @@ label c:
     return
 """
 label start:
-    return
+    $ p_name = renpy.input("What's your name?", length = 20)
+    #show image bivouac dans une foret enneigé
+    #show image intérieur du bivouac --> enfant dos au père
+    p "Hej fiston ! Il faut qu'on avance, on est plus très loin de Lulea."
+    s "Hmm ! J'ai tellement froid. J'ai plus la force."
+    p "Je sais Sven. C'est très complqiué en ce moment mais il faut absolument qu'on aille à Lulea. C'est notre seule chance d'enfin pouvoir vivre en paix, de vivre plutot que de survivre."
+    p "Allez ! Allons y !"
+    #Sort du bivouac avec Sven avec une carte
+    p "On devrait passer par le sud, c'est par là bas."
+
+    ############
+    #image seules dans la foret à marcher
+    #image d'une vieille station essence
+    p "Regarde ! Une station essence ! Il y aura peut etre des choses à récupérer."*
+    p "Elle est vraiment en ruine par contre."
+    s "Tu crois qu'on arrivera à trouver quelque chose ?"
+    p "Il le faut !"
+    #entre dans la station
+    #image choix entre l'arrière boutique, la boutique ou la caisse
+        Arrière boutique : 
+                p "J'ai pas l'impression qu'il y est grand chose..."
+                s "Papa, j'ai trouvé quelque chose !"
+                s "Je crois que c'est une sorte de ration ! Elle a vraiment l'air vieille"
+                p "Super, Sven !"
+                #Choix : la manger, lui donner, la garder
+                La manger : 
+                    p "Je suis désolé fiston, mais avec tout ce qui m'est arriver. C'est encore plus dure pour moi. Je préférais la prendre. Sans etre en bonne forme, je ne pourrais plus de protéger, tu comprends ?"
+                    s "Je comprends."
+                Lui donner : 
+                    p "Tu peux la manger, Sven. Tu en a beaucoup plus besoin que moi."
+                    s "Merci papa." # +1
+                La garder : 
+                    p "Je pense qui serait mieux de la garder. On ne sait jamais ce qui peut se passer"
+                    s "Ok papa, ça me parait juste."
+        Boutique : 
+                p "J'ai l'impression que tout a été dévalisé. Ca ne m'étonne pas vraiment."
+                s "Papa, viens"
+                p "Qu'est ce qu'il y a ?"
+                p "Oh, c'est tragique. Il n'a pas l'air d'avoir grand chose sur lui."
+                s "Regarde Papa, il y a une sorte de petit écusson de loup. T'as une idée de ce que sa pourrait etre ?"
+                p "Je n'en ai auccune idée, c'est la première fois que je le vois."
+        Caisse :
+                p "Tout est completement désolé ici, je ne pense pas que fouiller la caisse soit grandement utile."
+                s "Essaye peut etre les tiroirs on ne sait jamais."
+                p "Bra ! Bien joué Sven ! Je crois que j'ai trouver un bandage. Ca nous saura peut etre utile plus tard."
+#Coup de feu
+s "C'était quoi ça, papa ?"
+p "C'est surement un coup de feu, au nord de la ville"
+s "Qu'est ce qu'on fait ?"
+#Aller vers le bruit - Rejoindre le quartier pavillonaire (s'éloigner)
+        Eloignement :
+                p "Viens Sven ! On va essayer de se réfugier dans le quartier pavillonaire."
+                #passe par une ruelle avec le logo loup et un texte écrit "C'est ainsi que finissent les parasites" --> "Så här hamnar parasiter"
+                s "Pourquoi ils ont fait ça papa ?"
+                p "Je crois qu'il faut préférer ne jamais les rencontrer."
+                p "Aller viens, on va se réfugier dans cette maison le temps que ça se calme."
+        Rejoindre le bruit :
+                p "Aller viens Sven, il faut qu'on aille voir."
+                s "Mais Papa, c'est dangereux, ils sont armés, il y a peut etre des morts !"
+                p "Sven, on a plus rien. On ne peut pas vivre éternellement comme ça. Il faut qu'on récupère des ressources, tu comprends ça ?"
+                s "Oui, papa"
+                p "Aller, rejoignons cette maison, on les attendra ici."
+
+#Rencontre avec les humanistes
+p "On devrait etre en sécurité ici."
+s "J'ai un mauvais pressentiment. Je ne me sens pas bien ici."
+p "Ecoute, il faut que tu te calmes, tout va bien. Je suis la pour te protéger."
+p "Allons fouillé la maison."
+#choix : cuisine - chambre
+        Cuisine :
+                p "Allons voir la cuisine. Il y aura surement de la nourriture."
+                #fouille les tirois
+                p "Oh, j'ai trouvé une conserve de légumes. Elle a l'air toujours bonne."
+                s "J'ai tellement faim papa, je peux la prendre ?"
+                #choix : la garder - la manger - la donner
+                    La manger : 
+                            p "Je suis désolé fiston, mais avec tout ce qui m'est arriver. C'est encore plus dure pour moi. Je préférais la prendre. Sans etre en bonne forme, je ne pourrais plus de protéger, tu comprends ?"
+                            s "Je comprends."
+                    Lui donner : 
+                            p "Tu peux la manger, Sven. Tu en a beaucoup plus besoin que moi."
+                            s "Merci papa." # +1
+                    La garder : 
+                            p "Je pense qui serait mieux de la garder. On ne sait jamais ce qui peut se passer"
+                            s "Ok papa, ça me parait juste."
+p "Il nous suffit d'attendre encore un peu de temps."
+#Bruit de rechargement, gachette...
+a "Qui êtes vous ?"
+p "Doucement Sven, tout va bien se passer"
+p "On...On est simplement des survivants comme vous."
+a "Qu'est ce qui vous amène ici ?"
+p "On ne fait que passer."
+a "Où voulez vous aller ?"
+#choix : mentir - avouer
+        Mentir : 
+                p "Je vous les dis, on ne fait que passer. On veut simplement trouver un abris, un groupe, un endroit où vivre en paix"
+        Avouer :
+                p "On veut se rendre à Lulea. Apparamment ils ont réussi à reconstruire un village, tout le monde y vit en paix."
+                a "Ah ! Lulea ! Quel mesnonge. Je ne sais pas où est ce que vous avez entendu ça mais ce sont des vrais tyrans. Ils n'ont aucune pitié. Ils sont simplement égoiste et sont près à faire des guerres à n'importe qui pour récupérer un infime partie de ressource. Ce sont juste des anguianires pret à tout. Croyez moi, vous n'aver pas envie d'aller là-bas"
+                a "Vous avez vu leur logo, un loup affamé. Ils en sont fiers. Ils le mettent partoout pour faire peur aux groupes avoisinants. Et ils y arrivent. On est les seuls a vraiment leur faire tête mais c'est de plus compliqué chaque de jour de se battre conntre eux. C'est une véritable armée bien orgnaisée. Et nous on est de plus en plus vulnérable. On ne peut pas les laisser faire et on est les seul à pouvoir le faire."
+                p "Vous me demandez de vous rejoindre là ?"
+                a "Vous vous dites surement que vous vous en foutez de tout ce qui se passe ici mais depuis que vous etes arrivés ici. Vous etes constamment survéillé et vous ne pouvez plus sortir d'ici. Ils controlent les frontières de cette région et sont comme les prédateurs attendant gentiment leur proies de bien vouloir se présenter sous leurs yeux."
+                a "Vous etes fichus ici, comme nous, comme nous tous. Vous ne pouvez plus rien faire, vous comprenez ? Vous devez absolument vous joindre à nous à moins que vous etes pret à sacrifier votre fils."
+                #choix : ne rien dire - dire que ce n'est pas votre fils (chronométré)
+                        Pas votre fils :
+                                    p "Ce n'est pas mon fils. C'est simplement un enfant que j'ai trouvé sur ma route. J'essaie de le protéger comme je peux."
+                                    a "Ok, ça n'a pas vraiment d'immportance"
+                a "Alors, etes vous pret à nous rejoindre le temps de se battre contre eux, je peux vous amener à notre camp, si vous le voulez ?"
+                #choix : les rejoindre - rester seuls
+                        Rester seuls : 
+                                    p "Je préfére protéger Sven, je ne peux pas vous aider, je suis désolé"
+                                    a "Vous faites une grave erreur, vous le savez ?"
+                                    p "Peut etre, mais je n'ai pas envie de l'envoyer dans une guerre de clans sans réel motivation et où la fin reste prévisible."
+                                    a "Comme vous le voulez. Allez les gars, on peut y aller."
+
+                                    p "Je ne pouvais pas nous laisser embarquer dans une guerre futile. On n'avoit pas le choix, tu comprends ?"
+                                    a "Et si la femme avit raison, peut etre qu'ils nous ont déja repérer et qu'ils nous suivent en ce moment. Et si nous ne pouvons plus sortir d'ici ? Et si ils sont aussi terrifiants que le femme le disait ? Tu veux toujours qu'on les rejoingnre. Je ne veux pas etre méchant papa."
+                                    p "Du calme Sven, tout va bien. On ne sait pas tout sur cette histoire. Qui te dis qu'elle disait vraiment la vérité. Ils sont en guerre, Sven. On ne peut pas croire n'importe qui. Ils recherchaient peut etre simplement des gens naifs perdus pour rejoindre leur cause sans qu'ils en aient la moindre motivation."
+                                    p "Tout va bien. Du moment qu'on est que tous les deux. Rien ne peux nous arriver, d'accord ? Aller en route, le soleil se couche, il faut qu'on aille trouver un abri pour passer la nuit. Allons-y !"
+
+                                    #image seuls à marcher
+                                    p "Allez on peut se poser ici."
+                                    #image feu de camp
+                                    p "Ca va Sven ? T'as l'air ailleur ?"
+                                    s "C'est juste que je pense toujours à ce que la femme a dit. Et si on avait fait le mauvais choix, on si on était déja condamné."
+                                    p "Mais non Sven, tout va bien, on est encore tous les deux. Et ça c'est le plus important. Aller, il est tard allons se coucher !"
+
+                                    #bruit étrange, réveil père, punch
+                                    #sort du bivouac
+                                    p "Liv, c'est toi mon amour ?"
+                                    l "Tu me manques tellement [p_name] !"
+                                    p "Je suis si perdu sans toi. J'en ai marre de tout ça."
+                                    p "Je ne sais pas si tous les choix que j'ai pu faire ont été raisonnable ou pas. J'ai peur d'avoir condamné la vie de ce pauvre petit garçon."
+                                    l "Tu as de la peine, pour ce garçon ? Ce n'est même pas ton enfant. Tu nous a oubliés ? Nous, ta vrai famille, moi et Arvid ?"
+                                    p "Non mon coeur, je ne vous oublierais jamais. Vous etes tous pour moi. Chaque jour, chaque minutes, chaque secondes je pense à vous. Je suis perdu sans vous. Je n'en peux plus"
+                                    l "Tu n'en crois pas un mot. Je te vois chaque jour, à t'occuper de cet enfant minable. Tu ne veux pas te l'avouer mais c'est trop tard. Tu ne peux rien y faire. Rejoins nous, ta famille, on a tellement envie de te revoir. Tu préfères cet enfant ou Arvid ? Chosis !"
+                                    p "Bien sur que je préfère Arvid, chérie. C'est mon enfant, c'est ce dont j'ai été le plus fier."
+                                    l "Alors, rejoins nous, rejoins ta femme et ton fils. On veut juste te revoir parmis nous."
+                                    #l s'enfui au loin
+                                    p "Reviens chéri !"
+                                    #chemins successifs --> 4 séléctions de chemins puis fin
+                                    p "Chéri, j'en peux plus je veux te revoir !"
+                                    l "Rejoins nous"
+                                    #Game Over Screen "Fin" --> bouton retour au menu principal
+                        
+                        Les rejoindre :
+                                    p "Je ne crois qu'on a pas vraiment le choix."
+                                    a "Bienvenue, chez les Upplyst <les éclairés>"
+                                    a "Ok, allons y maintenant, le soleil commence à se coucher."
+                                    #image du clan puis du père et du fils marchant dans la foret
+
+                                    a "Nous voici au camp des Upplyst. On a eu des moments compliqués depuis la guerre avec Lulea"
+                                    a "Je vous laisse libre de découvrir le camp. Je dois m'occuper de d'autres affaires importantes"
+                                    p "Ok, merci pour votre amaibilité..."
+                                    a "Anja, je m'appelle Anja"
+                                    p "Förtrollad ! Enchanté Anja !"
+                                    a "A plus tard !"
+
+                                    p "Alors Sven, qu'est ce que t'en penses d'ici ?"
+                                    s "Je suis content qu'on est réussit à trouver des gens. Même si ça n'a pas l'air d'etre la grande forme, je me sens déja un peu mieux ici."
+                                    p "Je suis content de l'entendre, on est mieux qu'ici que seul dans la forêt à mon avis."
+                                    #donner ou non de la nourriture
+                                        Oui : 
+                                            p "Tiens Sven tu en a besoin."
+                                            s "Merci papa"
+                                            p "On a besoin de force pour ce qui va nous arriver."
+
+                                    s "Farbror ! Oncle Viggo !"
+                                    p "Quoi ?"
+                                    v "Ca me fait tellement plaisir de te voir la Sven ! Qu'est ce que tu as grandi !"
+                                    s "Viggo, voici [p_name], il s'est occupé de moi depuis tout ce temps."
+                                    v "Qui êtes vous ?"
+                                    p "Je suis un simple survivant. Au début de...tout ça, j'ai trouvé Sven seul dans sa cabane dans les bois alors que je passais par là pour trouver des ressources."
+                                    p "Et puis il était si jeune, si faible, que j'était obliger dans l'accompagné avec moi."
+                                    v "C'est vrai qu'il s'est occupé de toi Sven ?"
+                                    s "Oui, oncle !"
+                                    v "Tu as l'air si fragile, si maigre."
+                                    p "Oui, on n'a eu pas mal de problèmes pendant la route, ça a été difficile de trouver assez de ressource pour nous deux mais on est finalement là."
+                                    v "Méfie toi des inconnus Sven, cette personne peut etre très dangereux."
+                                    p "Qu'est ce que vous dites là ?"
+                                    v "Sven, je n'ai pas confiance en cet homme, les gens sont étrange ces temps ci et peuvent se changer en un rien de temps."
+                                    s "Nan, je te jure Oncle, [p_name] est vraiment gentil, il m'a aidé tout ce temps."
+                                    s "De toute façon, on a une bonne nouvelle, on va rester ici avec toi. [p_name] a prévu de rester ici quelques temps."
+                                    p "En parlant de ça Sven, j'ai bien réfléchi et je pense que l'on doit vraiment se rendre à Luluea. On doit absolument tenter d'aller là bas, en voyant se camp, je suis en train de plus en plus me dire que l'on est pas forcément dans le camp qui va le plus durée."
+                                    s "Mais on est bien ici, et puis il y a Viggo, je ne peux pa partir sans lui !"
+                                    p "Je suis désolé Sven, mais j'ai vraiment un mauvais pressentiment avec cet endroit. Je ne pense pas qu'on ait réellement le choix."
+                                    s "Et Viggo alors ?"
+                                    p "Je suis désolé Sven, mais on peut pas le prendre avec nous, il nous ralentirait et nous voudrais probblement pas sortir d'ici, il n'a pas l'air d'avoir le physique adéquat pour rejoindre Lulea."
+                                    p "Je suis désolé Sven mais il faut que tu fasse un choix, soit ici avec Viggo soit avec moi à Lulea. Chosit !"
+                                    s "..."
+                                    #choix : rester - partir avec
+                                        Rester :
+                                                s "Je suis désolé [p_name] mais je préfère rester avec Viggo. J'en ai marre de partir tous les matins à la recherche d'un paradis que l'on trouveras jamais. Je suis fattiué de tout ça. Je n'ai plus envie, je n'en ai plus la force. Désolé [p_name]."
+                                                #choix rester avec eux - partir quand même
+                                                        Rester :
+                                                                p "Je préfère rester avec toi même si tu préfère rester ici."
+                                                                p "Dès que je t'ai vu la première fois je me suis dis que j'allais de protéger jusqu'à ma mort et j'ai pas envie de m'arreter maintenant."
+                                                                s "Super Viggo et [p_name] réunis."
+                                                                p "Je vraiment peur de ce qui risque de se passer..."
+                                                                #image de guerre avec le camp totalement détruit avec le cadavre de Viggo, de Sven et de pname
+                                                        Partir :
+                                                                p "Bon, ça se finit aujourd'hui. Je suis triste que ça se finisse comme ça mais c'est ton choix et je le respecte. Bonne chance, Sven. Prenez bien soin de lui, Viggo. Adieu Sven !"
+
+                                        Partir :
+                                                s ""                        
+
+
+
+
+
+
+
+
+
+
+
+                                    
+
+
+                                    
