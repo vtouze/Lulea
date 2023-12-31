@@ -12,7 +12,7 @@
 ##
 ## The _() surrounding the string marks it as eligible for translation.
 
-define config.name = _("Lulea")
+define config.name = _("Luleå")
 
 
 ## Determines if the title given above is shown on the main menu screen. Set
@@ -37,7 +37,7 @@ define gui.about = _p("""
 ## distribution. This must be ASCII-only, and must not contain spaces, colons,
 ## or semicolons.
 
-define build.name = "Lulea"
+define build.name = "The Road"
 
 
 ## Sounds and music ############################################################
@@ -143,14 +143,14 @@ default preferences.afm_time = 15
 ## This generally should not be changed, and if it is, should always be a
 ## literal string, not an expression.
 
-define config.save_directory = "Lulea-1704034064"
+define config.save_directory = "Game-1699433150"
 
 
 ## Icon ########################################################################
 ##
 ## The icon displayed on the taskbar or dock.
 
-define config.window_icon = "gui/window_icon.png"
+define config.window_icon = "gui/Snowflake_Icon.png"
 
 
 ## Build configuration #########################################################

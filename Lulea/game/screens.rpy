@@ -4,7 +4,6 @@
 
 init offset = -1
 
-
 ################################################################################
 ## Styles
 ################################################################################
@@ -330,6 +329,9 @@ screen navigation():
             ## Web.
             textbutton _("Quit") action Quit(confirm=not main_menu)
 
+    add Snow("gui/snow1.png")
+    add Snow("gui/snow2.png")
+
 
 style navigation_button is gui_button
 style navigation_button_text is gui_button_text
@@ -385,7 +387,7 @@ style main_menu_frame:
     xsize 420
     yfill True
 
-    background "gui/overlay/main_menu.png"
+    background "images/backgroundMenuTest.jpg"
 
 style main_menu_vbox:
     xalign 1.0
