@@ -275,11 +275,129 @@ a "Où voulez vous aller ?"
                                                         Partir :
                                                                 p "Bon, ça se finit aujourd'hui. Je suis triste que ça se finisse comme ça mais c'est ton choix et je le respecte. Bonne chance, Sven. Prenez bien soin de lui, Viggo. Adieu Sven !"
                                                                 #########################
+                                                                
+                                                                #image seul dans la foret
+                                                                p "Bon , pour ce rendre à Lulea, il faut que je traverse la ville de Kiruna pour trouver des ressources."
+                                                                p "J'ai le choix entre deux lieux : le quartier pavillonaire ou le supermarché."
+                                                                #choix : quartier - supermarché
+                                                                                Quartier : 
+                                                                                        p "Allons se rendre dans le quartier pavillonaire, je trouverais surement des restes."
+
+                                                                                        #image intérieur maison
+                                                                                        p "Oh, je viens de trouver quelque chose, je crois que c'est une conserve de thon. C'est mieux que rien."
+                                                                                        #choix : la garder - la manger
+                                                                                                La manger :
+                                                                                                        p "Je crois que j'ai bien besoin de manger. Avec tout ce que j'ai donné à Sven sans rien avoir en retour, je pense que je peux me permettre."
+                                                                                                La garder :
+                                                                                                        p "Je pense que ça serait mieux de la garder. On ne sait jamais ce qui peut se passer."
+                                                                                        p "Je pense que j'ai tout fouillé ici. Je peux essayer de me rendre à Lulea maintenant."
+                                                                                Supermarché :
+                                                                                        p "Je peux peut etre tenter d'aller au supermarché, peut etre tout n'a pas été encore volé."
+                                                                                        
+                                                                                        #image supermarché
+                                                                                        p "Tout est si vide ici."
+                                                                                        p "Tout a déja été fouillé à mon avis."
+                                                                                        #bruit de coup de feu (assaut)
+                                                                                        p "Oh putain des autres survivants !"
+                                                                                        p "Qu'est ce que je fait ?"
+                                                                                        #choix : confrontation - fuite
+                                                                                                Confrontation : 
+                                                                                                        p "Je peut pas fuire, je suis obligé de me battre."
+                                                                                                        p "Ok, je vais m'en occuper avec mon pistolet."
+                                                                                
+                                                                                                        #coup de feu
+                                                                                                        p "Ok, il en reste plus qu'un." 
+                                                                                                        #coup de feu
+                                                                                                        p "AHHHH"
+                                                                                                        p "Il m'a eu."
+                                                                                                        p "Il me faut un bandage !"
+                                                                                                        #menu : oui / non
+                                                                                                                Non :
+                                                                                                                        #image mort joueur ##################
+
+                                                                                                                Oui :
+                                                                                                                        p "Heureusement que j'en ai récupéré !"
+                                                                                                                        p "Allez va mourir !"
+                                                                                                                        #coup de feu
+                                                                                                                        p "C'est bon, je l'ai eu."
+                                                                                                                        p "Putain il m'a bien touché. C'est vraiment dangereux ici, il faut absolument que je trouve Lulea le plus vite possible. Aller [p_name], c'est presque fini !"
+                                                                                                                        #Continue avec même label que fuite echec et fuite réussite
+                                                                                                Fuite :
+                                                                                                        p "Il faut que je tente de m'enfuir, je ne peut pas aller à la confrontation."
+                                                                                                        p "A trois je cours."
+                                                                                                        p "1"
+                                                                                                        p "2"
+                                                                                                        p "3 GO !"
+                                                                                                        #choix chronométré rapide
+                                                                                                        Echec : 
+                                                                                                                p "Putain, ils sont vraiment à l'affut. Je suis obliger maintenant d'aller à la confrontation."                                                                                
+                                                                                                                #coup de feu
+                                                                                                                p "Ok, il en reste plus qu'un." 
+                                                                                                                #coup de feu
+                                                                                                                p "AHHHH"
+                                                                                                                p "Il m'a eu."
+                                                                                                                p "Il me faut un bandage !"
+                                                                                                                #menu : oui / non
+                                                                                                                Non :
+                                                                                                                        #image mort joueur ##################
+
+                                                                                                                Oui :
+                                                                                                                        p "Heureusement que j'en ai récupéré !"
+                                                                                                                        p "Allez va mourir !"
+                                                                                                                        #coup de feu
+                                                                                                                        p "C'est bon, je l'ai eu."
+                                                                                                                        p "Putain il m'a bien touché. C'est vraiment dangereux ici, il faut absolument que je trouve Lulea le plus vite possible. Aller [p_name], c'est presque fini !"
+                                        #Repart seul vers Lulea                                                                             
+                                        p "Je doit plus etre très loin de Lulea."
+                                        p "Même si c'est surement pas un paradis, je pense que c'est la meilleure option que j'ai pour l'instant."
+
+                                        #image de la ville forteresse avec le logo de loup
+                                        #donner ou non de la nourriture"
+
+                                        #image à la porte
+                                        #toc toc
+                                        g "Qui êtes vous ?"
+                                        p "Je suis simplement un survivant. Je ne veut faire de mal à personne. J'ai entendu dire qu'il y a avait un camp ici et je veut seulement me joindre à vous. Je suis pret à travailler énormément pour gagner une place dans votre groupe. Je ne suis pas malade et je suis à l'aise physiquement."
+                                        g "Bien, savez vous qui nous sommes ?"
+                                        p "Je n'en sais que très peu à votre sujet."
+                                        g "Avez vous déja vu notre symbole"
+                                        #non - oui
+                                                Non :
+                                                        p "Non c'est la première fois."
+                                                        g "Et bien il faudrait que l'on le montre davantage..."
+                                                        g "Nous sommes les Sköll. En hommage au dieu, grand dévoreur du Soleil."
+                                                        g "Savez vous ce que ça implique de nous rejoindre ?"
+                                                        g "Nous ne voulons que les meilleurs. Si vous ne faites pas partis des meilleurs, on vous fait disparaitre, c'est compris ?"
+                                                        p "Je comprends."
+                                                Oui :
+                                                        p "Oui je l'ai déja vu quelque fois."
+                                                        g "Le grand Sköll, dévoreur du Soleil nous protège de la désolation et nous guide ces temps ci."
+                                                        g "Vous savez, on n'est pas ici pour devenir amis-amis avec tout le monde. Nous voulons simplement survivre et sommes pret à tout pour arriver à nos objectifs, compris ?"
+                                                        p "Je comprends."
+                                        g "Alors, etes vous toujours pret à nous rejoindre ?"
+                                        #choix : les rejoindre - rester seul - repartir chez les Upplyst
+                                                Les rejoindre :
+                                                        p "C'est ce dont j'ai toujours rever. Je peux enfin rejoindre ce groupe, après tout ce temps à errer, à etre proche de la mort chaque seconde de mon existence."
+                                                        #image joueur prisonier dans le camp
+                                                        #image sven meurt dans la guerre dans le camp humaniste
+                                                Repartir chez les Upplyst :
+                                                        p "Je crois qu'il serait mieux de rejoindre les Upplyst."
+                                                        p "Je pense que rejoindre ce groupe peut etre très dangereux. Je ne sais pas si je peux vraiment faire confiance à ces gens là."
+                                                        #image seul dans la foret
+                                                        #image joueur camp humanite
+                                                        #image joueur mort guerre humaniste
+                                                Rester seul :
+                                                        p "J'en ai marre de tout ça. Je n'en peux plus de cette guerre sans queue ni tête. Je ne suis pas sur que j'ai vraiment quelque chose à jouer là dedans."
+                                                        p "Je pense qu'il serait que je part de tout ça et que je retente l'aventure tout seul. Comme quand tout ceci à commencé."
+                                                        p "Je ne sais pas encore où est ce que je vais aller mais c'est indéniablement la meilleure option que j'ai."
+                                                        #image joueur seul dans la foret
+                                                        #image joueur meurt dans le bivouac
+
                                         Partir :
                                                 s "Désolé Viggo mais je dois partir avec [p_name]. J'ai très confiance en lui et il m'a traitée de la meilleure manière qu'il a pu."
                                                 v "Sache que tu fais le mauvais choix Sven, tu ne peux pas faire confiance à des inconnus surtout par ces temps ci."
                                                 s "Mais ce n'est pas un inconnu Viggo, c'est mon père."
-                                                p "Allons y Sven, il faut qu'on se dépche avant qu'il n'y arrive quelque chose."
+                                                p "Allons y Sven, il faut qu'on se dépeche avant qu'il n'y arrive quelque chose."
 
                                                 #image seuls dans une foret
                                                 p "Pour se rendre à Lulea, il faut qu'on traverse la ville de Kiruna et trouver des ressources."
@@ -425,25 +543,63 @@ a "Où voulez vous aller ?"
                                                         g "Nous sommes les Sköll. En hommage au dieu, grand dévoreur du Soleil."
                                                         g "Savez vous ce que ça implique de nous rejoindre ?"
                                                         g "Nous ne voulons que les meilleurs. Si vous ne faites pas partis des meilleurs, on vous fait disparaitre, c'est compris ?"
-                                                                        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                                        p "Je comprends."
+                                                Oui :
+                                                        p "Oui je l'ai déja vu quelque fois."
+                                                        g "Le grand Sköll, dévoreur du Soleil nous protège de la désolation et nous guide ces temps ci."
+                                                        g "Vous savez, on n'est pas ici pour devenir amis-amis avec tout le monde. Nous voulons simplement survivre et sommes pret à tout pour arriver à nos objectifs, compris ?"
+                                                        p "Je comprends."
+                                        g "Cependant, nous ne pouvons prendre qu'une seule personne ici. Nous voulons s'assurer de chaque entrée dans ce groupe et les former comme il le faut. Nous n'avons pas le temps de s'occuper de deux tetes fragiles."
+                                        p "Vous etes surs ? On peut tout les deux vous aider grandement on à le sens de..."
+                                        g "La ferme et choisissez ! Je n'ai pas de temps à perdre avec vous !"
+                                        #choix : abandonner Sven - amener Sven au camp - repartir chez humanistes - rester seuls
+                                                Abandonner Sven :
+                                                        p "Je suis désolé Sven mais j'ai fait tous ce que j'ai pu pour te protéger jusque là. J'ai fait énormément de sacrifice pour ta survie mais... j'en ai peux plus. Je suis fatigué Sven. Je ne veux plus survivre comme ça."
+                                                        p "Lulea a toujours été mon objectif avant même que je te rencontre et je n'ai pas envie de le laisser filer."
+                                                        s "Tu veux m'abandonner ici, tout seul. Mais je ne survivrais jamais sans toi."
+                                                        p "Ne te sous estime pas Sven. Tu es capable de bien plus. Je l'ai vu tout ce temps. Tu as beaucoup grandi et j'en suis fuire."
+                                                        s "Mais qu'est ce que u racontes ? Je ne peux rien faire sans toi. Je ne peux pas survivre comme ça."
+                                                        p "Je suis désolé Sven mais je ne peux plus."
+                                                        p "Adieu Sven !"
+                                                        #image Sven seul dans la foret
+                                                        #image joueur prisonier dans le camp
+                                                        #image sven chez les humaniste
+                                                        #image sven meurt dans la guerre dans le camp humaniste
+                                                Amener Sven :
+                                                        p "Sven, je pense qu'il est temps de se séparer. Mon objecctif a toujours été de te protéger et je crois que ma mission s'arrete ici. Rejoinds les, tu auras une vie bien meilleure, j'en suis sur."
+                                                        s "Mais papa, je ne peux rien faire sans toi, je ne peux pas survivre sans toi."
+                                                        p "Tu ne seras plus tout seul Sven, tu vivras mieux, bien mieux."
+                                                        s "Mais je ne veux pas ! Je veux rester avec toi papa ! Je m'en fiche de rester avec des inconnus, je veux continuer avec toi !"
+                                                        p "C'est difficle Sven mais on ne peut plus vivre comme ça. Ces derniers temps ont été compliqué et nous ne pouvons pas survivre comme ça très longtemps. On a pas le choix, il faut que tu ailles là bas."
+                                                        s "Et toi qu'est ce que tu vas faire ?"
+                                                        p "Ne t'inquiète pas pour moi, je m'en sortirais. Je réussirai toujours à m'en sortir comme on l'a toujours fait, d'accord ?"
+                                                        s "Oui papa."
+                                                        p "Au revoir Sven, tu me manqueras beaucoup !"
+                                                        s "Moi aussi"
+                                                        s "Papa."
+                                                        #image joueur seul dans la foret
+                                                        #image sven prisonier dans le camp
+                                                        #image joueur mort seul dans le bivouac
+                                                Repartir chez les humanistes :
+                                                        p "Je crois qu'il serait mieux que l'on rejoingne les Upplyst Sven."
+                                                        s "Mais papa, c'était ton objectif de venir ici, tu avais dis que c'était comme un petit paradis."
+                                                        p "Je sais Sven, mais rejoindre ce groupe peut etre très dangereux. Je ne sais pas s'il on peut vraiment faire confiance à ces gens là."
+                                                        p "Et, j'ai trop peur de te perdre, mon objectif est de te protéger et il ne va pas s'arreter aujourd'hui."
+                                                        s "On pourra rejoindre oncle Viggo alors ?"
+                                                        p "Oui Sven, on pourra rejoindre Viggo."
+                                                        #image sven et jour dans la foret
+                                                        #rejoingne le camp humaniste
+                                                        #image morts pendant la guerre dans le camp humaniste
+                                                Rester seuls :
+                                                        p "Je n'ai marre de tout ça Sven. Je n'en peux plus de cette guerre sans queue ni tête. Je ne crois pas que l'on est vraiment quelque chose à jouer."
+                                                        p "Je pense qu'il serait mieux qu'on part de tout ça et qu'on tente l'avanture à deux. Comme on l'a toujours fait."
+                                                        s "Mais où est ce que va aller alors ?"
+                                                        p "Je ne sais pas encore mais ça sera bien mieux qu'ici, tu ne trouves pas ?"
+                                                        s "Je ne sais pas, ces derniers temps ont été si compliqué que je ne sais pas si l'on peut toujours survivre comme ça."
+                                                        p "C'est notre meilleur option, Sven, crois moi."
+                                                        #image seuls dans la foret
+                                                        #image seuls dans le bivouac
+                                                        #image morts dans le bivouac
 
                                     
 
