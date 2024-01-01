@@ -11,14 +11,14 @@ image snow2 = Fixed(SnowBlossom("gui/snow2.png", 50, xspeed=(20,50), yspeed=(100
 define fade = Fade(0.5, 0.0, 0.5)
 define fadehold = Fade(0.5, 1.0, 0.5)
 define flash = Fade(0.1, 0.0, 0.5, color="#fff")
-"""
+
 
 transform alpha_dissolve:
     alpha 0.0
     linear 0.5 alpha 1.0
     on hide:
         linear 0.5 alpha 0
-
+"""
 screen countdown:
     text _("Choississez vite !") xalign 0.5 yalign 0.55 size 30 bold 1 outlines [(absolute(2), "#000", absolute(1), absolute(1))]
     timer 0.01 repeat True action If(time > 0, true=SetVariable('time', time - 0.01), false=[Hide('countdown'), Jump(timer_jump)])
@@ -73,6 +73,9 @@ label c:
     return
 """
 label start:
+    show snow1
+    show snow2
+    play music "audio/backgroundMusic.mp3" loop
     $ p_name = renpy.input("What's your name?", length = 20)
     #show image bivouac dans une foret enneigé
     #show image intérieur du bivouac --> enfant dos au père
@@ -89,6 +92,7 @@ label start:
     p "Elle est vraiment en ruine par contre."
     s "Tu crois qu'on arrivera à trouver quelque chose ?"
     p "Il le faut !"
+
     #entre dans la station
     #image choix entre l'arrière boutique, la boutique ou la caisse
     menu:
@@ -146,11 +150,10 @@ label cashRegister:
     jump firstShot
 
 label firstShot:
-    #Coup de feu
+    play sound "audio/shotFire2.mp3"
     s "C'était quoi ça, papa ?"
     p "C'est surement un coup de feu, au nord de la ville"
     s "Qu'est ce qu'on fait ?"
-    #Aller vers le bruit - Rejoindre le quartier pavillonaire (s'éloigner)
     menu:
         "S'éloigner du bruit":
             jump distanceNoise
@@ -232,7 +235,7 @@ label shed:
 
 label firstMeeting:
     p "Maintenant, il nous suffit seulement d'attendre encore un peu."
-    #Bruit de rechargement, gachette...
+    play sound "audio/reload.mp3"
     a "Qui êtes vous ?"
     p "Doucement Sven, tout va bien se passer"
     p "On...On est simplement des survivants comme vous."
@@ -317,6 +320,8 @@ label stayAlone1:
     #chemins successifs --> 4 séléctions de chemins puis fin
     p "Chéri, j'en peux plus je veux te revoir !"
     l "Rejoins nous"
+    stop music fadeout 0.5
+    play music "audio/endingMusic.mp3" loop
     #Game Over Screen "Fin" --> bouton retour au menu principal
 
 label joinThem1:
@@ -441,7 +446,7 @@ label supermarketAlone:
     #image supermarché
     p "Tout est si vide ici."
     p "Tout a déja été fouillé à mon avis."
-    #bruit de coup de feu (assaut)
+    play sound "audio/shotFireMultiple.wav"
     p "Oh putain des autres survivants !"
     p "Qu'est ce que je fait ?"
     #choix : confrontation - fuite
@@ -455,9 +460,9 @@ label confrontationAlone:
     p "Je peut pas fuire, je suis obligé de me battre."
     p "Ok, je vais m'en occuper avec mon pistolet."
                                                                                 
-    #coup de feu
+    play sound "audio/fireShot.mp3"
     p "Ok, il en reste plus qu'un." 
-    #coup de feu
+    play sound "audio/fireShot.mp3"
     p "AHHHH"
     p "Il m'a eu."
     p "Il me faut un bandage !"
@@ -469,12 +474,14 @@ label confrontationAlone:
             jump noBandageAlone
 
 label noBandageAlone:
+    stop music fadeout 0.5
+    play music "audio/endingMusic.mp3" loop
     #image mort joueur ##################
 
 label bandageAlone:
     p "Heureusement que j'en ai récupéré !"
     p "Allez va mourir !"
-    #coup de feu
+    play sound "audio/fireShot.mp3"
     p "C'est bon, je l'ai eu."
     p "Putain il m'a bien touché. C'est vraiment dangereux ici, il faut absolument que je trouve Lulea le plus vite possible. Aller [p_name], c'est presque fini !"
     #Continue avec même label que fuite echec et fuite réussite
@@ -494,9 +501,9 @@ label fleeAlone:
 
 label failureEndSupermarketAlone:
     p "Putain, ils sont vraiment à l'affut. Je suis obliger maintenant d'aller à la confrontation."                                                                                
-    #coup de feu
+    play sound "audio/fireShot.mp3"
     p "Ok, il en reste plus qu'un." 
-    #coup de feu
+    play sound "audio/fireShot.mp3"
     p "AHHHH"
     p "Il m'a eu."
     p "Il me faut un bandage !"
@@ -516,7 +523,7 @@ label endSituationAlone:
     #donner ou non de la nourriture"
 
     #image à la porte
-    #toc toc
+    play sound "audio/knock.mp3"
     g "Qui êtes vous ?"
     p "Je suis simplement un survivant. Je ne veut faire de mal à personne. J'ai entendu dire qu'il y a avait un camp ici et je veut seulement me joindre à vous. Je suis pret à travailler énormément pour gagner une place dans votre groupe. Je ne suis pas malade et je suis à l'aise physiquement."
     g "Bien, savez vous qui nous sommes ?"
@@ -559,11 +566,15 @@ label proposalAlone:
             jump endStayAlone1
         
 label joinThemAlone:
+    stop music fadeout 0.5
+    play music "audio/endingMusic.mp3" loop
     p "C'est ce dont j'ai toujours rever. Je peux enfin rejoindre ce groupe, après tout ce temps à errer, à etre proche de la mort chaque seconde de mon existence."
     #image joueur prisonier dans le camp
     #image sven meurt dans la guerre dans le camp humaniste
 
 label restartUpplystAlone:
+    stop music fadeout 0.5
+    play music "audio/endingMusic.mp3" loop
     p "Je crois qu'il serait mieux de rejoindre les Upplyst."
     p "Je pense que rejoindre ce groupe peut etre très dangereux. Je ne sais pas si je peux vraiment faire confiance à ces gens là."
     #image seul dans la foret
@@ -571,6 +582,8 @@ label restartUpplystAlone:
     #image joueur mort guerre humaniste
 
 label endStayAlone1:
+    stop music fadeout 0.5
+    play music "audio/endingMusic.mp3" loop
     p "J'en ai marre de tout ça. Je n'en peux plus de cette guerre sans queue ni tête. Je ne suis pas sur que j'ai vraiment quelque chose à jouer là dedans."
     p "Je pense qu'il serait que je part de tout ça et que je retente l'aventure tout seul. Comme quand tout ceci à commencé."
     p "Je ne sais pas encore où est ce que je vais aller mais c'est indéniablement la meilleure option que j'ai."
@@ -658,7 +671,7 @@ label supermarket:
     #image supermarché
     s "C'est si vide ici."
     p "Tout a déja été fouillé à mon avis."
-    #bruit de coup de feu (assaut)
+    play sound "audio/shotFireMultiple.wav"
     p "Cache toi Sven !"
     s "Papa j'ai peur !"
     p "Ca va aller, ca va aller !"
@@ -676,9 +689,9 @@ label confrontation:
     p "Surtout, tu ne bouges pas de ta cachette, ok ?"
     s "Ok, papa."
                                                                                 
-    #coup de feu
+    play sound "audio/fireShot.mp3"
     p "Ok, il en reste plus qu'un." 
-    #coup de feu
+    play sound "audio/fireShot.mp3"
     p "AHHHH"
     p "Il m'a eu."
     p "Il me faut un bandage !"
@@ -690,6 +703,8 @@ label confrontation:
             jump noBandage
 
 label noBandage: 
+    stop music fadeout 0.5
+    play music "audio/endingMusic.mp3" loop
     #image mort joueur
     #image bandit trouve l'enfant
     #image enfant dans le camp sanguinaire ##################
@@ -697,7 +712,7 @@ label noBandage:
 label bandage:
     p "Heureusement que j'en ai récupéré !"
     p "Allez va mourir !"
-    #coup de feu
+    play sound "audio/fireShot.mp3"
     p "C'est bon, je l'ai eu."
     p "Tu peux sortir Sven, ils sont plus là."
 
@@ -724,9 +739,9 @@ label failureEndSupermarket:
     p "Surtout, tu ne bouges pas de ta cachette, ok ?"
     s "Ok, papa."
                                                                                 
-    #coup de feu
+    play sound "audio/fireShot.mp3"
     p "Ok, il en reste plus qu'un." 
-    #coup de feu
+    play sound "audio/fireShot.mp3"
     p "AHHHH"
     p "Il m'a eu."
     p "Il me faut un bandage !"
@@ -762,7 +777,7 @@ label secondMeeting:
     s "Oui papa"
 
     #image à la porte
-    #toc toc
+    play sound "audio/knock.mp3"
     g "Qui êtes vous ?"
     p "On est simplement des survivants. On ne veut faire de mal à personne. J'ai entendu dire qu'il y a avait un camp ici et nous vouons seulement nous joindre à vous. Nous sommes prets à travailler énormément pour gagner une place dans votre groupe. Nous ne sommes pas malades, nous sommes à l'aise physiquement. Mon fils est très oéissant et ne vous causera aucun problème."
     g "Bien, savez vous qui nous sommes ?"
@@ -810,6 +825,8 @@ label proposal4:
             jump endStayAlone2
 
 label abandonSven:
+    stop music fadeout 0.5
+    play music "audio/endingMusic.mp3" loop
     p "Je suis désolé Sven mais j'ai fait tous ce que j'ai pu pour te protéger jusque là. J'ai fait énormément de sacrifice pour ta survie mais... j'en ai peux plus. Je suis fatigué Sven. Je ne veux plus survivre comme ça."
     p "Lulea a toujours été mon objectif avant même que je te rencontre et je n'ai pas envie de le laisser filer."
     s "Tu veux m'abandonner ici, tout seul. Mais je ne survivrais jamais sans toi."
@@ -823,6 +840,8 @@ label abandonSven:
     #image sven meurt dans la guerre dans le camp humaniste
 
 label svenJoinThem:
+    stop music fadeout 0.5
+    play music "audio/endingMusic.mp3" loop
     p "Sven, je pense qu'il est temps de se séparer. Mon objecctif a toujours été de te protéger et je crois que ma mission s'arrete ici. Rejoinds les, tu auras une vie bien meilleure, j'en suis sur."
     s "Mais papa, je ne peux rien faire sans toi, je ne peux pas survivre sans toi."
     p "Tu ne seras plus tout seul Sven, tu vivras mieux, bien mieux."
@@ -839,6 +858,8 @@ label svenJoinThem:
     #image joueur mort seul dans le bivouac
 
 label restartUpplyst:
+    stop music fadeout 0.5
+    play music "audio/endingMusic.mp3" loop
     p "Je crois qu'il serait mieux que l'on rejoingne les Upplyst Sven."
     s "Mais papa, c'était ton objectif de venir ici, tu avais dis que c'était comme un petit paradis."
     p "Je sais Sven, mais rejoindre ce groupe peut etre très dangereux. Je ne sais pas s'il on peut vraiment faire confiance à ces gens là."
@@ -850,6 +871,8 @@ label restartUpplyst:
     #image morts pendant la guerre dans le camp humaniste
 
 label endStayAlone2:
+    stop music fadeout 0.5
+    play music "audio/endingMusic.mp3" loop
     p "Je n'ai marre de tout ça Sven. Je n'en peux plus de cette guerre sans queue ni tête. Je ne crois pas que l'on est vraiment quelque chose à jouer."
     p "Je pense qu'il serait mieux qu'on part de tout ça et qu'on tente l'avanture à deux. Comme on l'a toujours fait."
     s "Mais où est ce que va aller alors ?"

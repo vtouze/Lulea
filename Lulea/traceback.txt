@@ -1,28 +1,33 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "renpy/common/00start.rpy", line 275, in script
-    python:
-ScriptError: could not find label 'start'.
+  File "game/script.rpy", line 93, in script
+    stop music fadeout "audio/backgroundMusic.mp3"
+  File "renpy/common/000statements.rpy", line 263, in execute_stop_music
+    renpy.music.stop(fadeout=eval(p["fadeout"]), channel=channel)
+ValueError: invalid literal for int() with base 10: 'audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\bootstrap.py", line 275, in bootstrap
-    renpy.main.main()
-  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\main.py", line 670, in main
-    run(restart)
-  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\main.py", line 144, in run
-    renpy.execution.run_context(True)
-  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\execution.py", line 955, in run_context
-    context.run()
-  File "renpy/common/00start.rpy", line 275, in script
-    python:
-  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\script.py", line 1013, in lookup
-    raise ScriptError("could not find label '%s'." % str(original))
-ScriptError: could not find label 'start'.
+  File "game/script.rpy", line 93, in script
+    stop music fadeout "audio/backgroundMusic.mp3"
+  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\ast.py", line 2259, in execute
+    self.call("execute")
+  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\ast.py", line 2241, in call
+    return renpy.statements.call(method, parsed, *args, **kwargs)
+  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\statements.py", line 342, in call
+    return method(parsed, *args, **kwargs)
+  File "renpy/common/000statements.rpy", line 263, in execute_stop_music
+    renpy.music.stop(fadeout=eval(p["fadeout"]), channel=channel)
+  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\audio\music.py", line 304, in stop
+    c.fadeout(fadeout)
+  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\audio\audio.py", line 659, in fadeout
+    renpysound.fadeout(self.number, secs)
+  File "renpysound.pyx", line 245, in renpy.audio.renpysound.fadeout
+ValueError: invalid literal for int() with base 10: 'audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp
 
 Windows-10-10.0.22621 AMD64
 Ren'Py 8.1.3.23091805
 Luleå 1.0
-Sun Dec 31 16:01:17 2023
+Mon Jan  1 16:35:37 2024
