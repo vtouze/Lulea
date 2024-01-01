@@ -1,33 +1,32 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script.rpy", line 93, in script
-    stop music fadeout "audio/backgroundMusic.mp3"
-  File "renpy/common/000statements.rpy", line 263, in execute_stop_music
-    renpy.music.stop(fadeout=eval(p["fadeout"]), channel=channel)
-ValueError: invalid literal for int() with base 10: 'audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp
+  File "game/script.rpy", line 98, in script
+    show sven at right, halfsize with dissolve
+  File "game/script.rpy", line 98, in <module>
+    show sven at right, halfsize with dissolve
+NameError: name 'halfsize' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script.rpy", line 93, in script
-    stop music fadeout "audio/backgroundMusic.mp3"
-  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\ast.py", line 2259, in execute
-    self.call("execute")
-  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\ast.py", line 2241, in call
-    return renpy.statements.call(method, parsed, *args, **kwargs)
-  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\statements.py", line 342, in call
-    return method(parsed, *args, **kwargs)
-  File "renpy/common/000statements.rpy", line 263, in execute_stop_music
-    renpy.music.stop(fadeout=eval(p["fadeout"]), channel=channel)
-  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\audio\music.py", line 304, in stop
-    c.fadeout(fadeout)
-  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\audio\audio.py", line 659, in fadeout
-    renpysound.fadeout(self.number, secs)
-  File "renpysound.pyx", line 245, in renpy.audio.renpysound.fadeout
-ValueError: invalid literal for int() with base 10: 'audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp3audio/backgroundMusic.mp
+  File "game/script.rpy", line 98, in script
+    show sven at right, halfsize with dissolve
+  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\ast.py", line 1428, in execute
+    show_imspec(self.imspec, atl=getattr(self, "atl", None))
+  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\ast.py", line 1387, in show_imspec
+    at_list = [ renpy.python.py_eval(i) for i in at_list ]
+  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\ast.py", line 1387, in <listcomp>
+    at_list = [ renpy.python.py_eval(i) for i in at_list ]
+  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\python.py", line 1153, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\admin_machine\Documents\renpy-8.1.3-sdk\renpy\python.py", line 1146, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script.rpy", line 98, in <module>
+    show sven at right, halfsize with dissolve
+NameError: name 'halfsize' is not defined
 
 Windows-10-10.0.22621 AMD64
 Ren'Py 8.1.3.23091805
 Luleå 1.0
-Mon Jan  1 16:35:37 2024
+Mon Jan  1 20:56:52 2024

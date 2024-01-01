@@ -13,91 +13,65 @@ define fadehold = Fade(0.5, 1.0, 0.5)
 define flash = Fade(0.1, 0.0, 0.5, color="#fff")
 
 
+image gasStation = "gasStation.png"
+image playerProfile = "playerProfile.png"
+image sven = "sven.png"
+image pathForest = "pathForest.png"
+image house = "house.png"
+image alley = "alley.png"
+image upplystCamp = "upplystCamp.png"
+image upplystCampWar = "upplystCampWar.png"
+
 transform alpha_dissolve:
     alpha 0.0
     linear 0.5 alpha 1.0
     on hide:
         linear 0.5 alpha 0
-"""
+
 screen countdown:
     text _("Choississez vite !") xalign 0.5 yalign 0.55 size 30 bold 1 outlines [(absolute(2), "#000", absolute(1), absolute(1))]
     timer 0.01 repeat True action If(time > 0, true=SetVariable('time', time - 0.01), false=[Hide('countdown'), Jump(timer_jump)])
-    bar value time range timer_range xalign 0.5 yalign 0.50 ysize 25 xmaximum 600 at alpha_dissolve
+    bar value time range timer_range xalign 0.5 yalign 0.90 ysize 25 xmaximum 300 at alpha_dissolve
 
 init:
     $ timer_range = 0
     $ timer_jump = 0
+    $ time = 0
     $ health = 100
 
-label test:
-    $ time = 5
-    $ timer_range = 5
-    $ timer_jump = 'c'
-    $ food = 0
-
-    show snow1
-    show snow2
-
-    $ p_name = renpy.input("What's your name?", length = 20)
-    show eileen happy with vpunch # or hpunch
-    #scene b with Fade(2)
-    show eileen happy
-    p "AHHHHHHHHH"
-    hide eileen happy
-    show screen countdown
-    menu:
-        "BEEP":
-            hide screen countdown
-            jump a
-
-        "BOOP":
-            hide screen countdown
-            jump b
-
-label a:
-    p "You said BEEP"
-    $ food = 0
-    menu:
-        "1":
-            jump b
-        
-        "2" if food == 1:
-            jump c
-
-label b:
-    p "You said BOOP"
-    return
-
-label c:
-    e "Bruh ?"
-    return
-"""
 label start:
     $ food = 0
     $ foodGiven = 0
     $ heal = 0
+    with dissolve
     show snow1
     show snow2
     play music "audio/backgroundMusic.mp3" loop
-    $ p_name = renpy.input("What's your name?", length = 20)
-    #show image bivouac dans une foret enneigé
-    #show image intérieur du bivouac --> enfant dos au père
+    $ p_name = renpy.input("Quel est votre prénom ?", length = 20)
+    scene campfire with dissolve
+    show snow1
+    show snow2
     p "Hej fiston ! Il faut qu'on avance, on est plus très loin de Luleå."
     s "Hmm ! J'ai tellement froid. J'ai plus la force."
     p "Je sais Sven. C'est très compliqué en ce moment mais, il faut absolument qu'on aille à Luleå. C'est notre seule chance d'enfin pouvoir vivre en paix, de vivre plutôt que de survivre."
     p "Allez ! Allons y !"
-    #Sort du bivouac avec Sven avec une carte
     p "On devrait passer par le sud, c'est par là-bas."
 
-    #image seules dans la foret à marcher
-    #image d'une vieille station essence
+    scene pathForest with dissolve
+    show snow1
+    show snow2
+    hide campfire
+    p "..."
+    scene gasStation with dissolve
+    show snow1
+    show snow2
+    hide pathForest
+
     p "Regarde ! Une station essence ! Il y aura peut être des choses à récupérer."
     p "Elle est vraiment en ruine par contre."
     s "Tu crois qu'on arrivera à trouver quelque chose ?"
     p "Il le faut !"
 
-    #entre dans la station
-    #image choix entre l'arrière boutique, la boutique ou la caisse
     menu:
         "Arrière boutique":
             jump backStore
@@ -111,9 +85,9 @@ label backStore:
     p "Je n'ai pas l'impression qu'il y est grand-chose..."
     s "Papa, j'ai trouvé quelque chose !"
     s "Je crois que c'est une sorte de ration ! Elle a vraiment l'air vieille."
+    play sound "audio/fillBag.mp3"
     p "Super, Sven !"
     $ food += 1
-    #Choix : la manger, lui donner, la garder
     menu:
         "La manger":
             jump eat1
@@ -149,6 +123,7 @@ label store:
     p "Je n'en ai aucune idée, c'est la première fois que je le vois."
     s "Oh, Papa, regarde sur lui ! Une conserve !"
     p "Grym Sven ! Génial, bien joué."
+    play sound "audio/fillBag.mp3"
     $ food += 1
     menu:
         "La manger":
@@ -162,6 +137,7 @@ label cashRegister:
     p "Tout est complètement désolé ici, je ne pense pas que fouiller la caisse soit grandement utile."
     s "Essaye peut être les tiroirs, on ne sait jamais."
     p "Bra ! Bien joué Sven ! Je crois que j'ai trouvé un bandage. Ça nous saura peut être utile plus tard."
+    play sound "audio/fillBag.mp3"
     $ heal += 1
     jump firstShot
 
@@ -178,8 +154,9 @@ label firstShot:
             jump joinNoise
 
 label distanceNoise:
+    scene alley with dissolve
+    hide gasStation
     p "Viens Sven ! On va essayer de se réfugier dans le quartier pavillonnaire."
-    #passe par une ruelle avec le logo loup et un texte écrit "C'est ainsi que finissent les parasites" --> "Så här hamnar parasiter"
     s "Pourquoi ils ont fait ça papa ?"
     p "Je crois qu'il faut préférer ne jamais les rencontrer."
     p "On va se réfugier dans cette maison le temps que ça se calme."
@@ -194,12 +171,12 @@ label joinNoise:
     jump house
 
 label house:
-    #Rencontre avec les humanistes
+    scene house with dissolve
+    hide alley
     p "On devrait être en sécurité ici."
     s "J'ai un mauvais pressentiment. Je ne me sens pas bien ici."
     p "Écoute, il faut que tu te calmes, tout va bien. Je suis là pour te protéger."
     p "Allons fouiller la maison."
-    #choix : cuisine - chambre
     menu:
         "Cuisine":
             jump kitchen
@@ -210,11 +187,10 @@ label house:
 
 label kitchen:
     p "Allons voir la cuisine. Il y aura sûrement de la nourriture."
-    #fouille les tirois
     p "Oh, j'ai trouvé une conserve de légumes. Elle a l'air toujours bonne."
     s "J'ai tellement faim papa, je peux la prendre ?"
+    play sound "audio/fillBag.mp3"
     $ food += 1
-    #choix : la garder - la manger - la donner
     menu:
         "La manger":
             jump eat2
@@ -242,9 +218,9 @@ label keep2:
 
 label bedroom:
     p "Allons voir la chambre. On pourra sûrement trouver quelque chose."
-    #fouille les tiroirs
     p "Oh, je viens de trouver un bandage. Ça pourra toujours être utile."
     $ heal += 1
+    play sound "audio/fillBag.mp3"
     jump firstMeeting
 
 label shed:
@@ -263,7 +239,6 @@ label firstMeeting:
     a "Qu'est-ce qui vous amène ici ?"
     p "On ne fait que passer."
     a "Où voulez-vous aller ?"
-    #choix : mentir - avouer
     menu:
         "Mentir":
             jump lie1
@@ -297,7 +272,6 @@ label proposal:
     a "Ils contrôlent les frontières de cette région et sont comme les prédateurs attendant gentiment leurs proies de bien vouloir se présenter sous leurs yeux."
     a "Vous êtes fichus ici, comme nous, comme nous tous. Vous ne pouvez plus rien faire, vous comprenez ?" 
     a "Vous devez absolument vous joindre à nous à moins que vous êtes prêt à sacrifier votre fils."
-    #choix : ne rien dire - dire que ce n'est pas votre fils (chronométré)
     menu:
         "Dire que ce n'est pas votre fils":
             jump tellNotMySon
@@ -311,7 +285,6 @@ label tellNotMySon:
 
 label proposal2:
     a "Alors, êtes-vous prêt à nous rejoindre le temps de se battre contre eux, je peux vous amener à notre camp, si vous le voulez ?"
-    #choix : les rejoindre - rester seuls
     menu:
         "Rester seuls":
             jump stayAlone1
@@ -332,17 +305,15 @@ label stayAlone1:
     p "Tout va bien. Du moment qu'on est que tous les deux. Rien ne peut nous arriver, d'accord ?" 
     p "Allez en route, le soleil se couche, il faut qu'on aille trouver un abri pour passer la nuit. Allons-y !"
 
-    #image seuls à marcher
+    scene campfire with dissolve
+    hide house
     p "Allez, on peut se poser ici."
-    #image feu de camp
     p "Ça va, Sven ? T'as l'air ailleurs ?"
     s "C'est juste que je pense toujours à ce que la femme a dit. Et si on avait fait le mauvais choix, et si on était déjà condamné."
     p "Mais non Sven, tout va bien, on est encore tous les deux. Et ça, c'est le plus important. Aller, il est tard allons se coucher !"
 
-    #bruit étrange, réveil père, punch
     play sound "audio/breathe.mp3"
     with hpunch
-    #sort du bivouac
     p "Liv, c'est toi mon amour ?"
     l "Tu me manques tellement [p_name] !"
     p "Je suis si perdu sans toi. J'en ai marre de tout ça."
@@ -351,24 +322,27 @@ label stayAlone1:
     p "Non mon cœur, je ne vous oublierais jamais. Vous êtes tous pour moi. Chaque jour, chaque minute, chaque seconde, je pense à vous." 
     p "Je suis perdu sans vous. Je n'en peux plus."
     l "Tu n'en crois pas un mot. Je te vois chaque jour, à t'occuper de cet enfant minable. Tu ne veux pas te l'avouer, mais c'est trop tard. Tu ne peux rien y faire." 
-    l "Rejoins-nous, ta famille, on a tellement envie de te revoir. Tu préfères cet enfant ou Arvid ? Chosit !"
+    l "Rejoins-nous, ta famille, on a tellement envie de te revoir. Tu préfères cet enfant ou Arvid ? Choisit !"
     p "Bien sûr que je préfère Arvid, chérie. C'est mon enfant, c'est ce dont j'ai été le plus fier."
     l "Alors, rejoins-nous, rejoins ta femme et ton fils. On veut juste te revoir parmi nous."
-    #l s'enfui au loin
     p "Reviens chéri !"
-    #chemins successifs --> 4 séléctions de chemins puis fin
     p "Chéri, j'en peux plus je veux te revoir !"
     l "Rejoins-nous !"
     stop music fadeout 0.5
     play music "audio/endingMusic.mp3" loop
-    #Game Over Screen "Fin" --> bouton retour au menu principal
+    unknown "Vous avez tenté de rejoindre votre famille or sans vous, Sven ne peut pas survivre. Vous l'avez ainsi condamné à une mort d'une horrible souffrance."
+    menu:
+        "Menu principal":
+            return
 
 label joinThem1:
+    scene house with dissolve
     p "Je ne crois qu'on n'a pas vraiment le choix."
     a "Bienvenue, chez les Upplyst."
     a "Ok, allons-y maintenant, le soleil commence à se coucher."
-    #image du clan puis du père et du fils marchant dans la foret
 
+    scene upplystCamp with dissolve
+    hide house
     a "Nous voici au camp des Upplyst. On a eu des moments compliqués depuis la guerre avec Luleå."
     a "Je vous laisse libre de découvrir le camp. Je dois m'occuper d'autres affaires importantes."
     p "Ok, merci pour votre amabilité..."
@@ -379,6 +353,7 @@ label joinThem1:
     p "Alors Sven, qu'est ce que t'en penses d'ici ?"
     s "Je suis content qu'on ait réussi à trouver des gens. Même si ça n'a pas l'air d'être la grande forme, je me sens déjà un peu mieux ici."
     p "Je suis content de l'entendre, on est mieux ici que seul dans la forêt à mon avis."
+    p "Cependant, j'ai l'impression qu'il y a beaucoup plus de personnes que de ressources disponibles, je ne sais s'ils ont va pouvoir rester ici très longtemps."
     if food >= 1:
         menu:
             "Donner de la nourriture à Sven":
@@ -429,7 +404,6 @@ label upplystCamp:
 label svenStayAtCamp:
     s "Je suis désolé [p_name] mais je préfère rester avec Viggo. J'en ai marre de partir tous les matins à la recherche d'un paradis que l'on trouvera jamais." 
     s "Je suis fatigué de tout ça. Je n'ai plus envie, je n'en ai plus la force. Désolé [p_name]."
-    #choix rester avec eux - partir quand même
     menu:
         "Rester au camp avec Sven":
             jump stayAtCampWithSven
@@ -442,16 +416,21 @@ label stayAtCampWithSven:
     p "Dès que je t'ai vu la première fois, je me suis dit que j'allais de protéger jusqu'à ma mort et je n'ai pas envie de m'arrêter maintenant."
     s "Super Viggo et [p_name] réunis."
     p "J'ai vraiment peur de ce qui risque de se passer..."
-    #image de guerre avec le camp totalement détruit avec le cadavre de Viggo, de Sven et de pname
+    scene upplystCampWar with dissolve
+    hide upplystCamp
+    unknown "À être rester avec les Upplyst, vous vous êtes trouver au mauvais endroit lors de la lourde attaque du groupe de Luleå."
+    unknown "Vous avez ainsi tous péri, Viggo, Sven, vous et le reste du camp des Upplyst. Pourquoi êtes vous donc rester ici ?"
+    menu:
+        "Menu principal":
+            return
+    return
 
 label leaveWithoutSven:
+    scene upplystCamp with dissolve
     p "Bon, ça se finit aujourd'hui. Je suis triste que ça se finisse comme ça, mais c'est ton choix et je le respecte. Bonne chance, Sven. Prenez bien soin de lui, Viggo. Adieu Sven !"
-    #########################
-                                                                
-    #image seul dans la foret
+
     p "Bon, pour se rendre à Luleå, il faut que je traverse la ville de Kiruna pour trouver des ressources."
     p "J'ai le choix entre deux lieux : le quartier pavillonnaire ou le supermarché."
-    #choix : quartier - supermarché
     menu:
         "Se rendre au quartier":
             jump neighborhoodAlone
@@ -465,7 +444,7 @@ label neighborhoodAlone:
     #image intérieur maison
     p "Oh, je viens de trouver quelque chose, je crois que c'est une conserve de thon. C'est mieux que rien."
     $ food += 1
-    #choix : la garder - la manger
+    play sound "audio/fillBag.mp3"
     menu:
         "La manger":
             jump eat3
@@ -487,14 +466,12 @@ label endNeighborhoodAlone:
 label supermarketAlone:
     p "Je peux peut-être tenter d'aller au supermarché, peux être tout n'a pas été encore volé."
                                                                                         
-    #image supermarché
     p "Tout est si vide ici."
     p "Tout a déjà été fouillé à mon avis."
     play sound "audio/shotFireMultiple.wav"
     with hpunch
     p "Fan ! Des autres survivants !"
     p "Qu'est-ce que je fais ?"
-    #choix : confrontation - fuite
     menu:
         "Aller à la confrontation":
             jump confrontationAlone
@@ -505,15 +482,14 @@ label confrontationAlone:
     p "Je ne peux pas fuir, je suis obligé de me battre."
     p "Ok, je vais m'en occuper avec mon pistolet."
                                                                                 
-    play sound "audio/fireShot.mp3"
+    play sound "audio/shotFire.mp3"
     with hpunch
     p "Ok, il en reste plus qu'un." 
-    play sound "audio/fireShot.mp3"
+    play sound "audio/shotFire.mp3"
     with hpunch
     p "AHHHH"
     p "Il m'a eu."
     p "Il me faut un bandage !"
-    #menu : oui / non
     menu:
         "Utiliser un bandage" if heal >= 1:
             jump bandageAlone
@@ -523,42 +499,46 @@ label confrontationAlone:
 label noBandageAlone:
     stop music fadeout 0.5
     play music "audio/endingMusic.mp3" loop
-    #image mort joueur ##################
+    unknown "Vous êtes mort au combat, seul. Triste sort. Vous avez perdu tous vos proches avant de mourir. En voilà, une belle mort."
+    menu:
+        "Menu principal":
+            return
 
 label bandageAlone:
     $ heal -= 1
     p "Heureusement que j'en ai récupéré !"
     p "Allez, va mourir !"
-    play sound "audio/fireShot.mp3"
+    play sound "audio/shotFire.mp3"
     with hpunch
     p "C'est bon, je l'ai eu."
     p "Fan ! Il m'a bien touché. C'est vraiment dangereux ici, il faut absolument que je trouve Luleå le plus vite possible. Aller [p_name], c'est presque fini !"
-    #Continue avec même label que fuite echec et fuite réussite
     jump endSituationAlone
+
 label fleeAlone:
+    $ time = 1
+    $ timer_range = 1
+    $ timer_jump = 'failureEndSupermarketAlone'
     p "Il faut que je tente de m'enfuir, je ne peux pas aller à la confrontation."
     p "À trois, je cours."
     p "1"
     p "2"
     p "3 GO !"
-    #choix chronométré rapide
+    show screen countdown
     menu:
         "Courir":
+            hide screen countdown
             jump endSituationAlone
-        "Ne pas courir":
-            jump failureEndSupermarketAlone
 
 label failureEndSupermarketAlone:
     p "Fan ! Ils sont vraiment à l'affût. Je suis obligé maintenant d'aller à la confrontation."                                                                                
-    play sound "audio/fireShot.mp3"
+    play sound "audio/shotFire.mp3"
     with hpunch
     p "Ok, il en reste plus qu'un." 
-    play sound "audio/fireShot.mp3"
+    play sound "audio/shotFire.mp3"
     with hpunch
     p "AHHHH"
     p "Il m'a eu."
     p "Il me faut un bandage !"
-    #menu : oui / non
     menu:
         "Utiliser un bandage" if heal >= 1:
             jump bandageAlone
@@ -566,14 +546,9 @@ label failureEndSupermarketAlone:
             jump noBandageAlone
 
 label endSituationAlone:
-    #Repart seul vers Lulea                                                                             
     p "Je dois plus être très loin de Luleå."
     p "Même si ce n'est sûrement pas un paradis, je pense que c'est la meilleure option que j'ai pour l'instant."
 
-    #image de la ville forteresse avec le logo de loup
-    #donner ou non de la nourriture"
-
-    #image à la porte
     play sound "audio/knock.mp3"
     with vpunch
     g "Qui êtes-vous ?"
@@ -582,7 +557,6 @@ label endSituationAlone:
     g "Bien, savez-vous qui nous sommes ?"
     p "Je n'en sais que très peu à votre sujet."
     g "Avez-vous déjà vu notre symbole ?"
-    #non - oui
     menu :
         "Non":
             jump noSymbolAlone
@@ -614,7 +588,6 @@ label proposalAlone:
     g "Ça ne peut pas exister et ça n'existera jamais." 
     g "On ne peut pas sauver tout le monde et eux s'obstinent encore à le faire en voyant pourtant les résultats désastreux que ça leur offre. Bon..."
     g "Alors, êtes-vous toujours prêt à nous rejoindre ?"
-    #choix : les rejoindre - rester seul - repartir chez les Upplyst
     menu:
         "Les rejoindre":
             jump joinThemAlone
@@ -629,17 +602,27 @@ label joinThemAlone:
     stop music fadeout 0.5
     play music "audio/endingMusic.mp3" loop
     p "C'est ce dont j'ai toujours rêvé. Je peux enfin rejoindre ce groupe, après tout ce temps à errer, à être proche de la mort chaque seconde de mon existence."
-    #image joueur prisonier dans le camp
-    #image sven meurt dans la guerre dans le camp humaniste
+
+    unknown "Enfin ! Vous avez réussi à atteindre votre objectif, le fameux village de Luleå. Vous avez bien mérité votre place."
+    unknown "Cependant, vous avez donné votre confiance trop rapidement à n'importe qui. Ce groupe est sournois et vous vous en êtes rendu compte trop tard."
+    unknown "Le groupe vous a capturé et vous a fait prisonnier." 
+    unknown "Vous n'êtes qu'un esclave parmi tant d'autres à espérer chaque seconde de votre existence de vivre comme autrefois."
+    menu:
+        "Menu principal":
+            return
 
 label restartUpplystAlone:
     stop music fadeout 0.5
     play music "audio/endingMusic.mp3" loop
     p "Je crois qu'il serait mieux de rejoindre les Upplyst."
     p "Je pense que rejoindre ce groupe peut être très dangereux. Je ne sais pas si je peux vraiment faire confiance à ces gens-là."
-    #image seul dans la foret
-    #image joueur camp humanite
-    #image joueur mort guerre humaniste
+
+    unknown "Vous avez décidé de rejoindre les Upplyst, bon choix. Enfin...vous avez une bonne morale. Vous êtes prêt à donner à votre prochain."
+    unknown "Cependant, est ce qu'avoir une bonne morale vous fait survivre ? Je suis navré de vous le dire, mais non."
+    unknown "En rejoignant le camp, vous êtes tombé nez à nez sur une lourde attaque du groupe de Luleå sur le camp. Tuant ainsi la quasi-totalité de ses membres, et vous compris."
+    menu:
+        "Menu principal":
+            return
 
 label endStayAlone1:
     stop music fadeout 0.5
@@ -647,8 +630,13 @@ label endStayAlone1:
     p "J'en ai marre de tout ça. Je n'en peux plus de cette guerre sans queue ni tête. Je ne suis pas sûr que j'ai vraiment quelque chose à jouer là-dedans."
     p "Je pense qu'il serait que je pars de tout ça et que je retente l'aventure tout seul. Comme quand tout ceci à commencé."
     p " Je ne sais pas encore où est ce que je vais aller, mais c'est indéniablement la meilleure option que j'ai."
-    #image joueur seul dans la foret
-    #image joueur meurt dans le bivouac
+
+    unknown "Vous avez décidé de finir seul. Très bon choix ! Vous avez préféré faire confiance seulement à vous-même."
+    unknown "Vous êtes courageux ! Cependant, ne vous souvenez plus à quel point ces temps-ci était difficile. À quel point il était difficile de survivre sans réel but."
+    unknown "Croyez-vous vraiment que vous aurez eu le mental nécessaire ? Bien évidemment que non. Vous êtes mort seul dans votre bivouac sans personne pour vous pleurer."
+    menu:
+        "Menu principal":
+            return
 
 label leaveWithPlayer:
     s "Désolé Viggo, mais je dois partir avec [p_name]. J'ai très confiance en lui et il m'a traitée de la meilleure manière qu'il a pu."
@@ -656,10 +644,8 @@ label leaveWithPlayer:
     s "Mais ce n'est pas un inconnu Viggo, c'est mon père."
     p "Allons y Sven, il faut qu'on se dépêche avant qu'il n'y arrive quelque chose."
 
-    #image seuls dans une foret
     p "Pour se rendre à Luleå, il faut qu'on traverse la ville de Kiruna et trouver des ressources."
     p "On a le choix entre trois lieux : le cinéma, le quartier résidentiel et le supermarché."
-    #choix : cinema - quartier - supermarché
     menu:
         "Se rendre au quartier":
             jump neighborhood
@@ -673,10 +659,8 @@ label leaveWithPlayer:
 label neighborhood:
     p "Allons se rendre dans le quartier, on trouvera sûrement des restes."
 
-    #image quartiers puis intérieur maison
     p "Je viens de trouver une conserve de thon."
     $ food += 1
-    #choix : la garder - la manger - la donner
     menu:
         "La manger":
             jump eat4
@@ -710,7 +694,6 @@ label endNeighborhood:
 label movieTheater:
     p "On peut aller au cinéma. Les gens se ruent plus facilement dans les maisons et supermarché plutôt que les cinémas."
 
-    #intérieur cinéma
     s "Ouah, c'est immense !"
     p "Tu n'es jamais allé au cinéma ?"
     s "Ja, j'y suis déjà allé, mais c'était il y a longtemps et j'étais très jeune. Je ne m'en souviens plus trop."
@@ -732,7 +715,6 @@ label movieTheater:
 label supermarket:
     p "On peut aller au supermarché, peut-être que des choses n'ont pas encore été volé là-bas."
 
-    #image supermarché
     s "C'est si vide ici."
     p "Tout a déjà été fouillé à mon avis."
     play sound "audio/shotFireMultiple.wav"
@@ -741,7 +723,6 @@ label supermarket:
     s "Papa, j'ai peur !"
     p "Ça va aller, ça va aller !"
     s "Qu'est-ce qu'on fait ?"
-    #choix : confrontation - fuite
     menu:
         "Aller à la confrontation":
             jump confrontation
@@ -754,15 +735,14 @@ label confrontation:
     p "Surtout, tu ne bouges pas de ta cachette, ok ?"
     s "Ok, papa."
                                                                                 
-    play sound "audio/fireShot.mp3"
+    play sound "audio/shotFire.mp3"
     with hpunch
     p "Ok, il en reste plus qu'un." 
-    play sound "audio/fireShot.mp3"
+    play sound "audio/shotFire.mp3"
     with hpunch
     p "AHHHH"
     p "Il m'a eu."
     p "Il me faut un bandage !"
-    #menu : oui / non
     menu:
         "Utiliser un bandage" if heal >= 1:
             jump bandage
@@ -772,15 +752,17 @@ label confrontation:
 label noBandage: 
     stop music fadeout 0.5
     play music "audio/endingMusic.mp3" loop
-    #image mort joueur
-    #image bandit trouve l'enfant
-    #image enfant dans le camp sanguinaire ##################
+    unknow "Le danger peut venir n'importe quand, et vous en avez souffert. Vous êtes mort en laissant Sven devenir prisonnier par ses survivants."
+    unknow "Ne vous inquiétez pas, il ne souffrira plus très longtemps."
+    menu:
+        "Menu principal":
+            return
 
 label bandage:
     $ heal -= 1
     p "Heureusement que j'en ai récupéré !"
     p "Allez va mourir !"
-    play sound "audio/fireShot.mp3"
+    play sound "audio/shotFire.mp3"
     with hpunch
     p "C'est bon, je l'ai eu."
     p "Tu peux sortir Sven, ils ne sont plus là."
@@ -788,36 +770,36 @@ label bandage:
     s "Ça va aller papa ?"
     p "Oui, Sven ne t'inquiète pas. Ce n'est qu'une égratignure. C'est vraiment dangereux ici, il faut absolument qu'on trouve Luleå le plus vite possible." 
     p "Allez en route !"
-    #Continue avec même label que fuite echec et fuite réussite
     jump endSituation
 
 label flee:
+    $ time = 1
+    $ timer_range = 1
+    $ timer_jump = 'failureEndSupermarket'
     p "Il faut qu'on s'enfuie, on ne peut pas aller à la confrontation."
     p "À trois, on court."
     p "1"
     p "2"
     p "3 GO !"
-    #choix chronométré rapide
+    show screen countdown
     menu:
         "Courir":
+            hide screen countdown
             jump endSituation
-        "Ne pas courir":
-            jump failureEndSupermarket
 
 label failureEndSupermarket:
     p "Ok, tu vas te cacher et moi, je vais m'en occuper avec le pistolet."
     p "Surtout, tu ne bouges pas de ta cachette, ok ?"
     s "Ok, papa."
                                                                                 
-    play sound "audio/fireShot.mp3"
+    play sound "audio/shotFire.mp3"
     with hpunch
     p "Ok, il en reste plus qu'un." 
-    play sound "audio/fireShot.mp3"
+    play sound "audio/shotFire.mp3"
     with hpunch
     p "AHHHH"
     p "Il m'a eu."
     p "Il me faut un bandage !"
-    #menu : oui / non
     menu:
         "Utiliser un bandage" if heal >= 1:
             jump bandage
@@ -825,13 +807,10 @@ label failureEndSupermarket:
             jump noBandage
 
 label endSituation:
-    #Reparte vers Lulea
     p "On doit plus être très loin de Luleå."
     s "T'es sûr que c'est toujours une bonne idée papa ?"
     p "Je pense que c'est la meilleure que nous ayons pour l'instant."
 
-    #image de la ville forteresse avec le logo de loup
-    #donner ou non de la nourriture
     menu :
         "Donner de la nourriture à Sven":
             jump giveS5
@@ -849,7 +828,6 @@ label secondMeeting:
     p "T'es prêt Sven ?"
     s "Oui papa."
 
-    #image à la porte
     play sound "audio/knock.mp3"
     with vpunch
     g "Qui êtes-vous ?"
@@ -859,7 +837,6 @@ label secondMeeting:
     g "Bien, savez-vous qui nous sommes ?"
     p "Je n'en sais que très peu à votre sujet."
     g "Avez-vous déjà vu notre symbole ?"
-    #non - oui
     menu:
         "Non":
             jump noSymbol
@@ -893,7 +870,6 @@ label proposal4:
     g "On ne peut pas sauver tout le monde et eux s'obstinent encore à le faire en voyant pourtant les résultats désastreux que ça leur offre. Bon..."
     p "Vous êtes sûr de ne pouvoir prendre qu'une seule personne ? On peut tous les deux vous aider grandement, on a le sens de..."
     g "La ferme et choisissez ! Je n'ai pas de temps à perdre avec vous !"
-    #choix : abandonner Sven - amener Sven au camp - repartir chez humanistes - rester seuls
     menu:
         "Les rejoindre et abandonner Sven":
             jump abandonSven
@@ -918,10 +894,13 @@ label abandonSven:
     s "Mais qu'est-ce que tu racontes ? Je ne peux rien faire sans toi. Je ne peux pas survivre comme ça."
     p "Je suis désolé, Sven, mais je ne peux plus."
     p "Adieu Sven !"
-    #image Sven seul dans la foret
-    #image joueur prisonier dans le camp
-    #image sven chez les humaniste
-    #image sven meurt dans la guerre dans le camp humaniste
+
+    unknow "Vous avez réussi à faire un choix difficile. Je vous félicite ! Dorénavant, vous êtes devenus un simple pion de ce groupe sanguinaire."
+    unknow "Vous souffrez énormément chaque jour, mais il semble que ce fût la meilleure option pour vous."
+    unknow "En revanche, pour Sven, vous vous imaginez qu'il n'a pas survit très longtemps. Il n'a même pas réussi à aller jusqu'au camp des Upplyst."
+    menu:
+        "Menu principal":
+            return
 
 label svenJoinThem:
     stop music fadeout 0.5
@@ -939,9 +918,12 @@ label svenJoinThem:
     p "Au revoir Sven, tu me manqueras beaucoup !"
     s "Moi aussi..."
     s "Papa."
-    #image joueur seul dans la foret
-    #image sven prisonier dans le camp
-    #image joueur mort seul dans le bivouac
+
+    unknow "Vous avez décidé de laisser votre place à Sven. Vous avez beaucoup de courage. Vous rendez vous compte que vous lui avez tout donné."
+    unknow "Et qu'est-ce que vous avez vous ? Rien ! Vous mourrez seul dans votre bivouac."
+    menu:
+        "Menu principal":
+            return
 
 label restartUpplyst:
     stop music fadeout 0.5
@@ -952,9 +934,13 @@ label restartUpplyst:
     p "Et j'ai trop peur de te perdre, mon objectif est de te protéger et il ne va pas s'arrêter aujourd'hui."
     s "On pourra rejoindre oncle Viggo alors ?"
     p "Oui Sven, on pourra rejoindre Viggo."
-    #image sven et jour dans la foret
-    #rejoingne le camp humaniste
-    #image morts pendant la guerre dans le camp humaniste
+
+    unknown "Vous avez décidé de rejoindre les Upplyst, bon choix. Enfin...vous avez une bonne morale. Vous êtes prêt à donner à votre prochain."
+    unknown "Cependant, est ce qu'avoir une bonne morale vous fait survivre ? Je suis navré de vous le dire, mais non."
+    unknown "En rejoignant le camp, vous êtes tombé nez à nez sur une lourde attaque du groupe de Luleå sur le camp. Tuant ainsi la quasi-totalité de ses membres, et vous compris."
+    menu:
+        "Menu principal":
+            return
 
 label endStayAlone2:
     stop music fadeout 0.5
@@ -965,6 +951,10 @@ label endStayAlone2:
     p "Je ne sais pas encore, mais ça sera bien mieux qu'ici, tu ne trouves pas ?"
     s "Je ne sais pas, ces derniers temps ont été si compliqué que je ne sais pas si l'on peut toujours survivre comme ça."
     p "C'est notre meilleure option, Sven, crois moi."
-    #image seuls dans la foret
-    #image seuls dans le bivouac
-    #image morts dans le bivouac
+
+    unknown "Vous avez décidé de finir seuls. Très bon choix ! Vous avez préféré faire confiance seulement à vous-même et Sven."
+    unknown "Vous êtes courageux ! Cependant, ne vous souvenez plus à quel point ces temps-ci était difficile. À quel point il était difficile de survivre sans réel but."
+    unknown "Croyez-vous vraiment que vous aurez eu le mental nécessaire ? Bien évidemment que non. Vous mourrez seul avec Sven à vos côtés en vous mettant face à votre échec."
+    menu:
+        "Menu principal":
+            return
