@@ -21,6 +21,11 @@ image house = "house.png"
 image alley = "alley.png"
 image upplystCamp = "upplystCamp.png"
 image upplystCampWar = "upplystCampWar.png"
+image hill = "hill.png"
+image house2 = "house2.png"
+image supermarket = "supermarket.png"
+image lulea = "lulea.png"
+image movieTheater = "movieTheater.png"
 
 transform alpha_dissolve:
     alpha 0.0
@@ -155,6 +160,8 @@ label firstShot:
 
 label distanceNoise:
     scene alley with dissolve
+    show snow1
+    show snow2
     hide gasStation
     p "Viens Sven ! On va essayer de se réfugier dans le quartier pavillonnaire."
     s "Pourquoi ils ont fait ça papa ?"
@@ -172,6 +179,8 @@ label joinNoise:
 
 label house:
     scene house with dissolve
+    show snow1
+    show snow2
     hide alley
     p "On devrait être en sécurité ici."
     s "J'ai un mauvais pressentiment. Je ne me sens pas bien ici."
@@ -306,6 +315,8 @@ label stayAlone1:
     p "Allez en route, le soleil se couche, il faut qu'on aille trouver un abri pour passer la nuit. Allons-y !"
 
     scene campfire with dissolve
+    show snow1
+    show snow2
     hide house
     p "Allez, on peut se poser ici."
     p "Ça va, Sven ? T'as l'air ailleurs ?"
@@ -330,6 +341,7 @@ label stayAlone1:
     l "Rejoins-nous !"
     stop music fadeout 0.5
     play music "audio/endingMusic.mp3" loop
+    
     unknown "Vous avez tenté de rejoindre votre famille or sans vous, Sven ne peut pas survivre. Vous l'avez ainsi condamné à une mort d'une horrible souffrance."
     menu:
         "Menu principal":
@@ -337,11 +349,15 @@ label stayAlone1:
 
 label joinThem1:
     scene house with dissolve
+    show snow1
+    show snow2
     p "Je ne crois qu'on n'a pas vraiment le choix."
     a "Bienvenue, chez les Upplyst."
     a "Ok, allons-y maintenant, le soleil commence à se coucher."
 
     scene upplystCamp with dissolve
+    show snow1
+    show snow2
     hide house
     a "Nous voici au camp des Upplyst. On a eu des moments compliqués depuis la guerre avec Luleå."
     a "Je vous laisse libre de découvrir le camp. Je dois m'occuper d'autres affaires importantes."
@@ -371,6 +387,7 @@ label giveS3:
     jump upplystCamp
 
 label upplystCamp:
+    with hpunch
     s "Farbror ! Oncle Viggo !"
     p "Quoi ?"
     v "Ça me fait tellement plaisir de te voir la Sven ! Qu'est-ce que tu as grandi !"
@@ -417,7 +434,10 @@ label stayAtCampWithSven:
     s "Super Viggo et [p_name] réunis."
     p "J'ai vraiment peur de ce qui risque de se passer..."
     scene upplystCampWar with dissolve
+    show snow1
+    show snow2
     hide upplystCamp
+
     unknown "À être rester avec les Upplyst, vous vous êtes trouver au mauvais endroit lors de la lourde attaque du groupe de Luleå."
     unknown "Vous avez ainsi tous péri, Viggo, Sven, vous et le reste du camp des Upplyst. Pourquoi êtes vous donc rester ici ?"
     menu:
@@ -427,8 +447,13 @@ label stayAtCampWithSven:
 
 label leaveWithoutSven:
     scene upplystCamp with dissolve
+    show snow1
+    show snow2
     p "Bon, ça se finit aujourd'hui. Je suis triste que ça se finisse comme ça, mais c'est ton choix et je le respecte. Bonne chance, Sven. Prenez bien soin de lui, Viggo. Adieu Sven !"
-
+    scene hill with dissolve
+    show snow1
+    show snow2
+    hide upplystCamp
     p "Bon, pour se rendre à Luleå, il faut que je traverse la ville de Kiruna pour trouver des ressources."
     p "J'ai le choix entre deux lieux : le quartier pavillonnaire ou le supermarché."
     menu:
@@ -440,8 +465,10 @@ label leaveWithoutSven:
 
 label neighborhoodAlone:
     p "Allons se rendre dans le quartier pavillonnaire, je trouverais sûrement des restes."
-
-    #image intérieur maison
+    scene house2 with dissolve
+    show snow1
+    show snow2
+    hide hill
     p "Oh, je viens de trouver quelque chose, je crois que c'est une conserve de thon. C'est mieux que rien."
     $ food += 1
     play sound "audio/fillBag.mp3"
@@ -465,7 +492,11 @@ label endNeighborhoodAlone:
 
 label supermarketAlone:
     p "Je peux peut-être tenter d'aller au supermarché, peux être tout n'a pas été encore volé."
-                                                                                        
+    scene supermarket with dissolve
+    show snow1
+    show snow2
+    hide house2
+    hide hill                                                                      
     p "Tout est si vide ici."
     p "Tout a déjà été fouillé à mon avis."
     play sound "audio/shotFireMultiple.wav"
@@ -499,6 +530,7 @@ label confrontationAlone:
 label noBandageAlone:
     stop music fadeout 0.5
     play music "audio/endingMusic.mp3" loop
+
     unknown "Vous êtes mort au combat, seul. Triste sort. Vous avez perdu tous vos proches avant de mourir. En voilà, une belle mort."
     menu:
         "Menu principal":
@@ -512,7 +544,7 @@ label bandageAlone:
     with hpunch
     p "C'est bon, je l'ai eu."
     p "Fan ! Il m'a bien touché. C'est vraiment dangereux ici, il faut absolument que je trouve Luleå le plus vite possible. Aller [p_name], c'est presque fini !"
-    jump endSituationAlone
+    jump endConfrontationAlone
 
 label fleeAlone:
     $ time = 1
@@ -527,7 +559,7 @@ label fleeAlone:
     menu:
         "Courir":
             hide screen countdown
-            jump endSituationAlone
+            jump endConfrontationAlone
 
 label failureEndSupermarketAlone:
     p "Fan ! Ils sont vraiment à l'affût. Je suis obligé maintenant d'aller à la confrontation."                                                                                
@@ -545,10 +577,18 @@ label failureEndSupermarketAlone:
         "Ne rien faire":
             jump noBandageAlone
 
+label endConfrontationAlone:
+    p "...Je ne suis pas passé loin ! J'espère ne plus recroiser ces gens-là."
+    jump endSituationAlone
+
 label endSituationAlone:
     p "Je dois plus être très loin de Luleå."
     p "Même si ce n'est sûrement pas un paradis, je pense que c'est la meilleure option que j'ai pour l'instant."
-
+    scene lulea with dissolve
+    show snow1
+    show snow2
+    hide supermarket
+    hide house2
     play sound "audio/knock.mp3"
     with vpunch
     g "Qui êtes-vous ?"
@@ -616,6 +656,10 @@ label restartUpplystAlone:
     play music "audio/endingMusic.mp3" loop
     p "Je crois qu'il serait mieux de rejoindre les Upplyst."
     p "Je pense que rejoindre ce groupe peut être très dangereux. Je ne sais pas si je peux vraiment faire confiance à ces gens-là."
+    scene upplystCampWar with dissolve
+    show snow1
+    show snow2
+    hide lulea
 
     unknown "Vous avez décidé de rejoindre les Upplyst, bon choix. Enfin...vous avez une bonne morale. Vous êtes prêt à donner à votre prochain."
     unknown "Cependant, est ce qu'avoir une bonne morale vous fait survivre ? Je suis navré de vous le dire, mais non."
@@ -630,6 +674,11 @@ label endStayAlone1:
     p "J'en ai marre de tout ça. Je n'en peux plus de cette guerre sans queue ni tête. Je ne suis pas sûr que j'ai vraiment quelque chose à jouer là-dedans."
     p "Je pense qu'il serait que je pars de tout ça et que je retente l'aventure tout seul. Comme quand tout ceci à commencé."
     p " Je ne sais pas encore où est ce que je vais aller, mais c'est indéniablement la meilleure option que j'ai."
+    scene campfire with dissolve
+    show snow1
+    show snow2
+    hide lulea
+    hide upplystCampWar
 
     unknown "Vous avez décidé de finir seul. Très bon choix ! Vous avez préféré faire confiance seulement à vous-même."
     unknown "Vous êtes courageux ! Cependant, ne vous souvenez plus à quel point ces temps-ci était difficile. À quel point il était difficile de survivre sans réel but."
@@ -639,11 +688,19 @@ label endStayAlone1:
             return
 
 label leaveWithPlayer:
+    scene upplystCamp with dissolve
+    show snow1
+    show snow2
+    hide lulea
+    hide upplystCampWar
     s "Désolé Viggo, mais je dois partir avec [p_name]. J'ai très confiance en lui et il m'a traitée de la meilleure manière qu'il a pu."
     v "Sache que tu fais le mauvais choix Sven, tu ne peux pas faire confiance à des inconnus surtout par ces temps-ci."
     s "Mais ce n'est pas un inconnu Viggo, c'est mon père."
     p "Allons y Sven, il faut qu'on se dépêche avant qu'il n'y arrive quelque chose."
-
+    scene hill with dissolve
+    show snow1
+    show snow2
+    hide upplystCamp
     p "Pour se rendre à Luleå, il faut qu'on traverse la ville de Kiruna et trouver des ressources."
     p "On a le choix entre trois lieux : le cinéma, le quartier résidentiel et le supermarché."
     menu:
@@ -658,7 +715,11 @@ label leaveWithPlayer:
 
 label neighborhood:
     p "Allons se rendre dans le quartier, on trouvera sûrement des restes."
-
+    scene house2 with dissolve
+    show snow1
+    show snow2
+    hide upplystCampWar
+    hide upplystCamp
     p "Je viens de trouver une conserve de thon."
     $ food += 1
     menu:
@@ -693,7 +754,11 @@ label endNeighborhood:
 
 label movieTheater:
     p "On peut aller au cinéma. Les gens se ruent plus facilement dans les maisons et supermarché plutôt que les cinémas."
-
+    scene movieTheater with dissolve
+    show snow1
+    show snow2
+    hide house2
+    hide upplystCamp
     s "Ouah, c'est immense !"
     p "Tu n'es jamais allé au cinéma ?"
     s "Ja, j'y suis déjà allé, mais c'était il y a longtemps et j'étais très jeune. Je ne m'en souviens plus trop."
@@ -714,7 +779,11 @@ label movieTheater:
 
 label supermarket:
     p "On peut aller au supermarché, peut-être que des choses n'ont pas encore été volé là-bas."
-
+    scene supermarket with dissolve
+    show snow1
+    show snow2
+    hide house2
+    hide movieTheater
     s "C'est si vide ici."
     p "Tout a déjà été fouillé à mon avis."
     play sound "audio/shotFireMultiple.wav"
@@ -752,8 +821,9 @@ label confrontation:
 label noBandage: 
     stop music fadeout 0.5
     play music "audio/endingMusic.mp3" loop
-    unknow "Le danger peut venir n'importe quand, et vous en avez souffert. Vous êtes mort en laissant Sven devenir prisonnier par ses survivants."
-    unknow "Ne vous inquiétez pas, il ne souffrira plus très longtemps."
+
+    unknown "Le danger peut venir n'importe quand, et vous en avez souffert. Vous êtes mort en laissant Sven devenir prisonnier par ses survivants."
+    unknown "Ne vous inquiétez pas, il ne souffrira plus très longtemps."
     menu:
         "Menu principal":
             return
@@ -770,7 +840,7 @@ label bandage:
     s "Ça va aller papa ?"
     p "Oui, Sven ne t'inquiète pas. Ce n'est qu'une égratignure. C'est vraiment dangereux ici, il faut absolument qu'on trouve Luleå le plus vite possible." 
     p "Allez en route !"
-    jump endSituation
+    jump endConfrontation
 
 label flee:
     $ time = 1
@@ -785,7 +855,7 @@ label flee:
     menu:
         "Courir":
             hide screen countdown
-            jump endSituation
+            jump endConfrontation
 
 label failureEndSupermarket:
     p "Ok, tu vas te cacher et moi, je vais m'en occuper avec le pistolet."
@@ -805,6 +875,10 @@ label failureEndSupermarket:
             jump bandage
         "Ne rien faire":
             jump noBandage
+
+label endConfrontation:
+    p "...On n'est pas passé loin ! J'espère ne plus recroiser ces gens-là."
+    jump endSituation
 
 label endSituation:
     p "On doit plus être très loin de Luleå."
@@ -827,7 +901,12 @@ label giveS5:
 label secondMeeting:    
     p "T'es prêt Sven ?"
     s "Oui papa."
-
+    scene lulea with dissolve
+    show snow1
+    show snow2
+    hide movieTheater
+    hide supermarket
+    hide house2
     play sound "audio/knock.mp3"
     with vpunch
     g "Qui êtes-vous ?"
@@ -894,10 +973,13 @@ label abandonSven:
     s "Mais qu'est-ce que tu racontes ? Je ne peux rien faire sans toi. Je ne peux pas survivre comme ça."
     p "Je suis désolé, Sven, mais je ne peux plus."
     p "Adieu Sven !"
+    scene lulea with dissolve
+    show snow1
+    show snow2
 
-    unknow "Vous avez réussi à faire un choix difficile. Je vous félicite ! Dorénavant, vous êtes devenus un simple pion de ce groupe sanguinaire."
-    unknow "Vous souffrez énormément chaque jour, mais il semble que ce fût la meilleure option pour vous."
-    unknow "En revanche, pour Sven, vous vous imaginez qu'il n'a pas survit très longtemps. Il n'a même pas réussi à aller jusqu'au camp des Upplyst."
+    unknown "Vous avez réussi à faire un choix difficile. Je vous félicite ! Dorénavant, vous êtes devenus un simple pion de ce groupe sanguinaire."
+    unknown "Vous souffrez énormément chaque jour, mais il semble que ce fût la meilleure option pour vous."
+    unknown "En revanche, pour Sven, vous vous imaginez qu'il n'a pas survit très longtemps. Il n'a même pas réussi à aller jusqu'au camp des Upplyst."
     menu:
         "Menu principal":
             return
@@ -905,6 +987,9 @@ label abandonSven:
 label svenJoinThem:
     stop music fadeout 0.5
     play music "audio/endingMusic.mp3" loop
+    scene lulea with dissolve
+    show snow1
+    show snow2
     p "Sven, je pense qu'il est temps de se séparer. Mon objectif a toujours été de te protéger et je crois que ma mission s'arrête ici." 
     p "Rejoins les, tu auras une vie bien meilleure, j'en suis sûr."
     s "Mais papa, je ne peux rien faire sans toi, je ne peux pas survivre sans toi."
@@ -919,8 +1004,8 @@ label svenJoinThem:
     s "Moi aussi..."
     s "Papa."
 
-    unknow "Vous avez décidé de laisser votre place à Sven. Vous avez beaucoup de courage. Vous rendez vous compte que vous lui avez tout donné."
-    unknow "Et qu'est-ce que vous avez vous ? Rien ! Vous mourrez seul dans votre bivouac."
+    unknown "Vous avez décidé de laisser votre place à Sven. Vous avez beaucoup de courage. Vous rendez vous compte que vous lui avez tout donné."
+    unknown "Et qu'est-ce que vous avez vous ? Rien ! Vous mourrez seul dans votre bivouac."
     menu:
         "Menu principal":
             return
@@ -934,6 +1019,10 @@ label restartUpplyst:
     p "Et j'ai trop peur de te perdre, mon objectif est de te protéger et il ne va pas s'arrêter aujourd'hui."
     s "On pourra rejoindre oncle Viggo alors ?"
     p "Oui Sven, on pourra rejoindre Viggo."
+    scene upplystCampWar with dissolve
+    show snow1
+    show snow2
+    hide lulea
 
     unknown "Vous avez décidé de rejoindre les Upplyst, bon choix. Enfin...vous avez une bonne morale. Vous êtes prêt à donner à votre prochain."
     unknown "Cependant, est ce qu'avoir une bonne morale vous fait survivre ? Je suis navré de vous le dire, mais non."
@@ -951,6 +1040,11 @@ label endStayAlone2:
     p "Je ne sais pas encore, mais ça sera bien mieux qu'ici, tu ne trouves pas ?"
     s "Je ne sais pas, ces derniers temps ont été si compliqué que je ne sais pas si l'on peut toujours survivre comme ça."
     p "C'est notre meilleure option, Sven, crois moi."
+    scene campfire with dissolve
+    show snow1
+    show snow2
+    hide lulea
+    hide upplystCampWar
 
     unknown "Vous avez décidé de finir seuls. Très bon choix ! Vous avez préféré faire confiance seulement à vous-même et Sven."
     unknown "Vous êtes courageux ! Cependant, ne vous souvenez plus à quel point ces temps-ci était difficile. À quel point il était difficile de survivre sans réel but."
